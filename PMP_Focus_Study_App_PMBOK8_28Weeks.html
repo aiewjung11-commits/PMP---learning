@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0a2d6e" />
+<title>PMP Focus — Study Companion</title>
+<style>
+:root{
+  --navy:#0a2d6e; --blue:#1a5fd4; --sky:#eaf3ff; --ink:#0d1f3c; --muted:#5f7397;
+  --line:#c8daf5; --card:#ffffff; --success:#1a9b6c; --warning:#d98700; --danger:#d8475a;
+  --purple:#7655e8; --shadow:0 12px 30px rgba(17,64,139,.12); --radius:20px;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(180deg,#f0f6ff 0%,#f7fbff 40%,#eef5ff 100%);color:var(--ink);
+font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;min-height:100vh}
+button,input,textarea,select{font:inherit} button{cursor:pointer}
+.app{max-width:1440px;margin:auto;padding:0 18px 92px}
+.topbar{position:sticky;top:0;z-index:20;margin:0 -18px;padding:13px 18px 11px;background:rgba(240,246,255,.88);backdrop-filter:blur(15px);border-bottom:1px solid rgba(200,218,245,.8)}
+.topinner{max-width:1404px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--navy);font-weight:850;letter-spacing:-.4px}
+.logo{width:38px;height:38px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:12px;box-shadow:0 6px 16px rgba(26,95,212,.25);font-size:20px}
+.brand small{display:block;color:var(--muted);font-weight:650;font-size:10px;letter-spacing:.7px;margin-top:1px}
+.top-actions{display:flex;gap:8px;align-items:center}.iconbtn{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:12px;padding:9px 11px;font-weight:750}
+.hero{margin:18px 0 16px;background:linear-gradient(120deg,#071f53,#1450b6 62%,#286fe9);color:#fff;border-radius:28px;padding:28px;position:relative;overflow:hidden;box-shadow:0 18px 36px rgba(10,45,110,.22)}
+.hero:after,.hero:before{content:"";position:absolute;border:1px solid rgba(255,255,255,.18);border-radius:50%}.hero:before{width:270px;height:270px;right:-70px;top:-150px}.hero:after{width:190px;height:190px;right:35px;bottom:-130px}
+.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.25fr .75fr;gap:24px;align-items:center}.eyebrow{font-size:11px;font-weight:800;letter-spacing:1.1px;text-transform:uppercase;color:#bcd8ff}.hero h1{font-size:clamp(26px,4vw,41px);line-height:1.05;letter-spacing:-1.3px;margin:8px 0 10px}.hero p{margin:0;color:#deebff;max-width:650px;line-height:1.6}.btnrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.btn{border:0;border-radius:13px;padding:11px 15px;font-weight:800}.btn-primary{background:#fff;color:var(--navy)}.btn-outline{background:rgba(255,255,255,.11);color:#fff;border:1px solid rgba(255,255,255,.38)}
+.exam-card{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.24);border-radius:20px;padding:17px;backdrop-filter:blur(8px)}.exam-card h3{margin:0 0 11px;font-size:14px}.examline{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid rgba(255,255,255,.18);font-size:13px}.examline:first-of-type{border-top:0}.examline span{color:#cfe2ff}.examline strong{font-size:13px}
+.tabs{display:flex;gap:7px;overflow:auto;padding:5px 0 15px;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}.tab{white-space:nowrap;border:1px solid var(--line);background:#fff;color:var(--muted);padding:10px 13px;border-radius:13px;font-size:13px;font-weight:800}.tab.active{color:#fff;background:linear-gradient(135deg,var(--navy),var(--blue));border-color:var(--blue);box-shadow:0 7px 15px rgba(26,95,212,.18)}
+.view{display:none}.view.active{display:block}.grid{display:grid;gap:15px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}.card h2,.card h3{margin:0;color:var(--ink)}.card h2{font-size:18px;letter-spacing:-.4px}.card h3{font-size:15px}.sub{font-size:13px;color:var(--muted);line-height:1.55;margin:5px 0 0}.stat{position:relative;min-height:138px;overflow:hidden}.stat:after{content:"";position:absolute;width:100px;height:100px;right:-28px;bottom:-42px;border-radius:50%;background:var(--shade,#eef5ff)}.stat .num{font-size:32px;font-weight:900;letter-spacing:-1.3px;margin-top:13px;position:relative;z-index:1}.stat .label{font-size:12px;font-weight:750;color:var(--muted);position:relative;z-index:1}.chip{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:5px 8px;font-size:11px;font-weight:800;background:#eef5ff;color:var(--blue)}.chip.green{background:#e7f8f0;color:var(--success)}.chip.orange{background:#fff5df;color:var(--warning)}.chip.red{background:#fff0f2;color:var(--danger)}.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:24px 0 10px}.linkbtn{border:0;background:transparent;color:var(--blue);font-weight:850;padding:4px}.progressbar{height:9px;border-radius:999px;background:#e8eff9;overflow:hidden}.progressbar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#1a5fd4,#62a2ff);border-radius:inherit;transition:.35s ease}.today-list{display:grid;gap:9px;margin-top:14px}.task{border:1px solid #dce8f8;background:#fbfdff;padding:12px;border-radius:14px;display:flex;gap:11px;align-items:flex-start}.check{appearance:none;width:21px;height:21px;border:2px solid #9fb9df;border-radius:7px;margin:1px 0 0;flex:0 0 auto;display:grid;place-items:center}.check:checked{background:var(--success);border-color:var(--success)}.check:checked:after{content:"✓";color:#fff;font-size:14px;font-weight:900}.task b{font-size:13px}.task span{font-size:12px;color:var(--muted);display:block;margin-top:2px}.ring-wrap{display:flex;justify-content:center;align-items:center;min-height:175px}.ring{--p:0;width:148px;height:148px;border-radius:50%;background:conic-gradient(#1a5fd4 calc(var(--p)*1%), #e8eff9 0);display:grid;place-items:center;position:relative}.ring:after{content:"";width:118px;height:118px;background:#fff;border-radius:50%;position:absolute}.ring div{z-index:1;text-align:center}.ring strong{font-size:30px;display:block;letter-spacing:-1px}.ring span{font-size:11px;color:var(--muted);font-weight:800}.domainrow{display:grid;grid-template-columns:80px 1fr 40px;gap:10px;align-items:center;margin-top:15px;font-size:12px;font-weight:750}.domainrow small{font-size:11px;color:var(--muted)}.tip{padding:13px 14px;border-left:4px solid var(--blue);background:#eff6ff;border-radius:0 12px 12px 0;color:#24456f;font-size:13px;line-height:1.55;margin-top:14px}.plan-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.pill{padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:#f8fbff;font-size:12px;font-weight:800;color:var(--blue)}.plan-grid{display:grid;grid-template-columns:repeat(7,minmax(116px,1fr));gap:10px;overflow-x:auto;padding-bottom:9px}.day{min-width:116px;border:1px solid var(--line);background:#fff;border-radius:16px;padding:12px;min-height:148px}.day.today{border-color:#1a5fd4;box-shadow:0 0 0 3px rgba(26,95,212,.10)}.day.done{background:#f0fcf7;border-color:#bae8d5}.day .date{font-size:11px;font-weight:850;color:var(--muted)}.day .topic{font-size:13px;font-weight:850;line-height:1.35;margin:8px 0}.day .mins{font-size:11px;color:var(--muted)}.tinybtn{border:0;border-radius:9px;padding:7px 9px;margin-top:9px;background:#eaf3ff;color:var(--blue);font-size:11px;font-weight:850}.day.done .tinybtn{background:#dff6eb;color:#157652}.study-card{display:grid;grid-template-columns:70px 1fr auto;align-items:center;gap:12px;margin-top:11px;padding:13px;border:1px solid #dce8f8;border-radius:16px}.module-num{width:50px;height:50px;background:linear-gradient(135deg,#e4efff,#cde0ff);display:grid;place-items:center;border-radius:14px;font-weight:900;color:var(--blue)}.study-card b{font-size:14px}.study-card p{margin:3px 0 0;font-size:12px;color:var(--muted);line-height:1.4}.form-row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.form-row select,.form-row input,.form-row textarea{border:1px solid var(--line);background:#fbfdff;border-radius:12px;padding:10px;color:var(--ink);outline:none}.form-row select:focus,.form-row input:focus,.form-row textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,95,212,.1)}.quiz-wrap{max-width:900px;margin:auto}.qtop{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:14px}.qnum{font-size:12px;color:var(--muted);font-weight:850}.question{font-size:20px;line-height:1.45;letter-spacing:-.25px;margin:17px 0}.option{width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:14px;padding:13px 14px;margin:9px 0;color:var(--ink);display:flex;gap:12px;align-items:flex-start;transition:.15s}.option:hover{border-color:#8fb6f1;background:#f7fbff}.option .letter{width:25px;height:25px;flex:0 0 25px;border-radius:8px;background:#edf3fc;color:var(--blue);display:grid;place-items:center;font-size:12px;font-weight:900}.option.selected{border-color:var(--blue);background:#f0f6ff}.option.correct{border-color:var(--success);background:#effbf5}.option.wrong{border-color:var(--danger);background:#fff3f4}.explanation{border-radius:14px;padding:14px;margin-top:13px;background:#f5f8fd;color:#294564;line-height:1.55;font-size:13px}.quiz-footer{display:flex;justify-content:space-between;gap:10px;margin-top:17px}.primary-action{border:0;background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;border-radius:12px;padding:11px 14px;font-weight:850}.secondary-action{border:1px solid var(--line);background:#fff;color:var(--blue);border-radius:12px;padding:11px 14px;font-weight:850}.flash-stage{max-width:730px;margin:10px auto 0;perspective:1000px}.flashcard{height:300px;position:relative;transform-style:preserve-3d;transition:transform .55s;cursor:pointer}.flashcard.flipped{transform:rotateY(180deg)}.face{position:absolute;inset:0;border-radius:24px;padding:28px;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:1px solid var(--line);box-shadow:var(--shadow)}.front{background:linear-gradient(135deg,#0a2d6e,#1a5fd4);color:#fff}.back{background:#fff;color:var(--ink);transform:rotateY(180deg);align-items:flex-start;text-align:left}.face .tiny{font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:900;opacity:.78}.front h2{color:#fff;font-size:28px;margin-top:10px}.back h3{font-size:14px;color:var(--blue);text-transform:uppercase;letter-spacing:.7px}.back p{font-size:17px;line-height:1.55;margin:12px 0 0}.flash-controls{display:flex;justify-content:center;gap:10px;margin:17px 0}.flash-count{text-align:center;font-size:12px;font-weight:800;color:var(--muted);margin-top:10px}.formula-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.formula{padding:16px;border:1px solid var(--line);border-radius:17px;background:#fff}.formula h3{font-size:14px}.formula code{display:block;font-weight:900;color:var(--blue);font-size:18px;margin:10px 0;background:#edf5ff;padding:8px;border-radius:10px}.formula p{font-size:12px;color:var(--muted);line-height:1.45;margin:0}.calc{margin-top:13px;background:#f8fbff;padding:12px;border-radius:14px;border:1px dashed #bbd1f0}.calc label{font-size:11px;font-weight:800;color:var(--muted);display:block;margin-bottom:4px}.calc input{width:100%;padding:8px;border:1px solid var(--line);border-radius:9px}.calc-result{font-size:13px;font-weight:900;color:var(--success);margin-top:8px;min-height:18px}.mock-stat{display:flex;align-items:center;gap:17px}.timer{font-size:32px;letter-spacing:-1.2px;font-weight:950;color:var(--navy)}.notearea{width:100%;resize:vertical;min-height:160px;line-height:1.55}.note-list{display:grid;gap:9px;margin-top:12px}.noteitem{border:1px solid var(--line);border-radius:13px;padding:11px;background:#fbfdff}.noteitem b{font-size:13px}.noteitem p{font-size:12px;color:var(--muted);line-height:1.45;margin:5px 0 0;white-space:pre-wrap}.noteitem .meta{display:flex;justify-content:space-between;gap:8px;margin-top:8px;color:#7e93b4;font-size:10px;font-weight:750}.empty{color:var(--muted);font-size:13px;padding:18px 0;text-align:center}.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,80px);z-index:90;background:#0d2756;color:#fff;padding:11px 16px;border-radius:13px;font-size:13px;font-weight:800;box-shadow:0 12px 25px rgba(0,0,0,.2);opacity:0;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}.footer{color:#6680a5;font-size:11px;line-height:1.55;padding:20px 2px;text-align:center}.hide{display:none!important}.alert{border:1px solid #f0d190;background:#fff9e9;color:#7e5b16;padding:12px 13px;border-radius:14px;font-size:12px;line-height:1.55}.settings-grid{display:grid;gap:10px}.settingrow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid #edf2f9}.settingrow:last-child{border-bottom:0}.settingrow b{font-size:13px}.settingrow span{font-size:11px;color:var(--muted);display:block;margin-top:2px}.dangerbtn{border:1px solid #f5c7cf;background:#fff6f7;color:var(--danger);border-radius:10px;padding:8px 10px;font-size:12px;font-weight:850}
+@media(max-width:980px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}.formula-grid{grid-template-columns:repeat(2,1fr)}.hero-grid{grid-template-columns:1fr}.exam-card{max-width:510px}.stat{min-height:120px}}
+@media(max-width:620px){.app{padding:0 13px 72px}.topbar{margin:0 -13px;padding:10px 13px}.brand small{display:none}.hero{margin:13px 0 12px;padding:22px 19px;border-radius:22px}.hero h1{font-size:29px}.hero p{font-size:13px}.exam-card{padding:14px}.g4,.g3,.g2,.formula-grid{grid-template-columns:1fr}.card{padding:15px;border-radius:18px}.tabs{padding-bottom:11px}.tab{padding:9px 11px;font-size:12px}.question{font-size:18px}.flashcard{height:290px}.face{padding:22px}.back p{font-size:16px}.study-card{grid-template-columns:50px 1fr}.study-card .tinybtn{grid-column:2}.module-num{width:43px;height:43px}.top-actions .iconbtn:last-child{display:none}.hero .btn{padding:10px 12px;font-size:13px}.ring-wrap{min-height:150px}}
+
+.lesson-layout{display:grid;grid-template-columns:280px 1fr;gap:15px;align-items:start}.lesson-nav{position:sticky;top:74px;max-height:calc(100vh - 94px);overflow:auto}.lesson-nav-title{font-size:12px;font-weight:900;color:var(--muted);letter-spacing:.7px;text-transform:uppercase;margin:0 0 9px}.lesson-link{display:block;width:100%;text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:10px 11px;color:var(--ink);font-size:12px;font-weight:800;margin:3px 0}.lesson-link:hover{background:#f3f8ff;border-color:#d7e6fa}.lesson-link.active{background:#eaf3ff;border-color:#a7c6f4;color:var(--blue)}.lesson-link.done:after{content:"✓";float:right;color:var(--success)}.lesson-kicker{font-size:11px;letter-spacing:.9px;text-transform:uppercase;color:var(--blue);font-weight:900}.lesson-content h2{font-size:26px;letter-spacing:-.7px;margin:6px 0}.lesson-meta{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 17px}.lesson-body{font-size:15px;line-height:1.78;color:#1c3455}.lesson-body h3{font-size:17px;margin:22px 0 7px;color:var(--navy)}.lesson-body p{margin:8px 0}.lesson-body ul{padding-left:20px;margin:7px 0}.lesson-body li{margin:6px 0}.lesson-example{margin:17px 0;padding:15px;border:1px solid #cfe0fa;background:#f5f9ff;border-radius:16px}.lesson-example b{color:var(--blue)}.lesson-rule{margin:17px 0;padding:15px;border-left:4px solid var(--success);background:#effbf5;border-radius:0 14px 14px 0}.lesson-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}.reading-progress{margin-top:12px}.resource-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:15px}.resource{border:1px solid var(--line);background:#fbfdff;border-radius:15px;padding:13px}.resource b{font-size:13px}.resource p{font-size:12px;color:var(--muted);line-height:1.45;margin:5px 0 0}@media(max-width:820px){.lesson-layout{grid-template-columns:1fr}.lesson-nav{position:static;max-height:260px}.lesson-content h2{font-size:23px}.lesson-body{font-size:14px}.resource-grid{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="topinner">
+      <div class="brand"><div class="logo">✓</div><div>PMP Focus<small>PERSONAL STUDY COMPANION</small></div></div>
+      <div class="top-actions">
+        <button class="iconbtn" id="dailyBtn" title="Open today’s study plan">Today</button>
+        <button class="iconbtn" id="backupBtn" title="Export your local study data">Backup</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Your 1-hour daily learning system</div>
+        <h1>Build PMP confidence,<br>one focused session at a time.</h1>
+        <p>แผน 28 สัปดาห์ วันละ 60 นาที มุ่งสู่การสอบ PMBOK 8 ต้นปี 2027 — ความคืบหน้าเก็บในเครื่องนี้ ไม่ต้องมีบัญชี ไม่ต้องต่อเน็ต</p>
+        <div class="btnrow">
+          <button class="btn btn-primary" data-go="study">Start today’s 60 minutes</button>
+          <button class="btn btn-outline" data-go="quiz">Take a 10-question quiz</button>
+        </div>
+      </div>
+      <aside class="exam-card">
+        <h3>PMP · PMBOK 8</h3>
+        <div class="examline"><span>Exam version</span><strong>From 9 Jul 2026</strong></div>
+        <div class="examline"><span>Target exam</span><strong id="examDateLabel" style="cursor:pointer;text-decoration:underline dotted" title="แตะเพื่อเปลี่ยนวันสอบ">—</strong></div>
+        <div class="examline"><span>Countdown</span><strong id="examCountdown">—</strong></div>
+        <div class="examline"><span>Questions / Time</span><strong>180 / 240 min</strong></div>
+        <div class="examline"><span>People</span><strong>33%</strong></div>
+        <div class="examline"><span>Process</span><strong>41%</strong></div>
+        <div class="examline"><span>Business Environment</span><strong>26%</strong></div>
+      </aside>
+    </div>
+  </section>
+
+  <nav class="tabs" aria-label="Main navigation">
+    <button class="tab active" data-view="dashboard">Dashboard</button>
+    <button class="tab" data-view="study">Study Plan</button>
+    <button class="tab" data-view="lessons">เนื้อหาอ่าน</button>
+    <button class="tab" data-view="quiz">Quiz</button>
+    <button class="tab" data-view="flashcards">Flashcards</button>
+    <button class="tab" data-view="mock">Mock Practice</button>
+    <button class="tab" data-view="formulas">Formula Lab</button>
+    <button class="tab" data-view="notes">Notes</button>
+    <button class="tab" data-view="settings">Settings</button>
+  </nav>
+
+  <main>
+    <section class="view active" id="dashboard">
+      <div class="grid g4">
+        <article class="card stat" style="--shade:#eaf3ff"><span class="chip">Today</span><div class="num" id="todayMins">0<span style="font-size:16px">/60</span></div><div class="label">Minutes planned</div></article>
+        <article class="card stat" style="--shade:#e7f8f0"><span class="chip green">Consistency</span><div class="num" id="streakVal">0</div><div class="label">Current-day streak</div></article>
+        <article class="card stat" style="--shade:#fff4df"><span class="chip orange">Quiz accuracy</span><div class="num" id="accuracyVal">—</div><div class="label">Across completed questions</div></article>
+        <article class="card stat" style="--shade:#f0edff"><span class="chip" style="background:#f0edff;color:#7655e8">Plan</span><div class="num" id="planProgress">0%</div><div class="label">84-day study programme</div></article>
+      </div>
+
+      <div class="grid g2" style="margin-top:15px">
+        <article class="card">
+          <div class="section-head" style="margin-top:0"><div><h2>Today’s focus</h2><p class="sub" id="todayTitle">Set up your study plan.</p></div><button class="linkbtn" data-go="study">Open plan →</button></div>
+          <div class="progressbar"><i id="todayProgress"></i></div>
+          <div class="today-list" id="todayTasks"></div>
+        </article>
+        <article class="card">
+          <div class="section-head" style="margin-top:0"><div><h2>Readiness snapshot</h2><p class="sub">Progress is based on your plan and practice.</p></div><span class="chip green" id="readinessLabel">Starting</span></div>
+          <div class="grid g2" style="align-items:center">
+            <div class="ring-wrap"><div class="ring" id="readinessRing"><div><strong id="readinessPct">0%</strong><span>READINESS</span></div></div></div>
+            <div id="domainBars"></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="grid g3" style="margin-top:15px">
+        <article class="card">
+          <h3>Best PMP answer habit</h3>
+          <p class="sub">Read the scenario, identify the approach, then choose the answer that protects value, people, and collaboration before escalating or acting alone.</p>
+          <div class="tip">For Agile/Hybrid scenarios, think: coach → collaborate → make work visible → inspect & adapt.</div>
+        </article>
+        <article class="card">
+          <h3>Quick challenge</h3>
+          <p class="sub">A project sponsor requests a major change mid-sprint. What should the PM do first?</p>
+          <button class="tinybtn" id="challengeBtn">Reveal answer</button>
+          <div class="tip hide" id="challengeAnswer">Discuss it with the product owner and add it to the product backlog for prioritization. Avoid disrupting a committed sprint unless truly urgent.</div>
+        </article>
+        <article class="card">
+          <h3>Study safeguard</h3>
+          <p class="sub">This app uses original explanations and practice scenarios. It does not reproduce PMI exam questions or licensed training material.</p>
+          <div class="tip">Use it as a daily organiser and skills practice layer alongside your official PMP learning materials.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="view" id="study">
+      <div class="section-head"><div><h2>196-day PMP study plan (28 สัปดาห์)</h2><p class="sub">One hour a day. Complete tasks in order or adjust around your own schedule.</p></div><span class="pill"><span id="completedDays">0</span> / 196 study days</span></div>
+      <div class="card">
+        <div class="plan-top"><div><b style="font-size:14px">This week</b><p class="sub" style="margin:3px 0 0">Tap “Complete” when you finish a session.</p></div><div class="form-row"><button class="secondary-action" id="prevWeek">←</button><span class="pill" id="weekLabel">Week 1</span><button class="secondary-action" id="nextWeek">→</button></div></div>
+        <div class="plan-grid" id="weekGrid"></div>
+      </div>
+      <div class="grid g2" style="margin-top:15px">
+        <article class="card">
+          <h2>Learning path</h2>
+          <p class="sub">This sequence deliberately develops judgement before heavy formula memorisation.</p>
+          <div id="moduleList"></div>
+        </article>
+        <article class="card">
+          <h2>How to use your hour</h2>
+          <div class="today-list">
+            <div class="task"><div class="module-num">15</div><div><b>Learn one concept</b><span>Read/watch a focused topic and write a 2–3 line takeaway.</span></div></div>
+            <div class="task"><div class="module-num">25</div><div><b>Answer scenario questions</b><span>Practice choosing the best PM mindset, not only recalling terms.</span></div></div>
+            <div class="task"><div class="module-num">10</div><div><b>Review errors</b><span>Use explanations to find the decision principle you missed.</span></div></div>
+            <div class="task"><div class="module-num">10</div><div><b>Flashcards & notes</b><span>Capture one formula, mindset, or weak point for tomorrow.</span></div></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+
+
+    <section class="view" id="lessons">
+      <div class="section-head"><div><h2>เนื้อหาอ่าน PMP ภาษาไทย</h2><p class="sub">บทสรุปต้นฉบับสำหรับทบทวนแนวคิดและฝึกคิดแบบ PMP ไม่ใช่คู่มือหรือข้อสอบอย่างเป็นทางการของ PMI</p></div><span class="pill" id="lessonReadCount">0 / 12 บทอ่านแล้ว</span></div>
+      <div class="grid g2" style="margin-bottom:15px">
+        <article class="card"><h3>เรียนอย่างไรให้ได้ผล</h3><p class="sub">อ่านบทละประมาณ 10–15 นาที แล้วลองโยงกับสถานการณ์จริงในงานของคุณ เช่น NPI, supplier delay, ECN, quality issue หรือการคุม stakeholder</p><div class="reading-progress"><div class="progressbar"><i id="lessonProgress"></i></div></div></article>
+        <article class="card"><h3>PMP 2026: ต้องคิดแบบไหน</h3><p class="sub">โจทย์ให้ความสำคัญกับการสร้างคุณค่า การนำคน การเลือกวิธีทำงานให้เหมาะกับบริบท และการตัดสินใจอย่างรับผิดชอบ ไม่ใช่ท่องศัพท์อย่างเดียว</p></article>
+      </div>
+      <div class="lesson-layout">
+        <aside class="card lesson-nav"><div class="lesson-nav-title">12 บทเรียน</div><div id="lessonNav"></div></aside>
+        <article class="card lesson-content"><div id="lessonContent"></div></article>
+      </div>
+    </section>
+
+    <section class="view" id="quiz">
+      <div class="quiz-wrap">
+        <div class="section-head"><div><h2>Daily quiz</h2><p class="sub">Exam-style judgement practice. Choose the best next action.</p></div><div class="form-row"><select id="quizDomain"><option value="all">All domains</option><option value="People">People</option><option value="Process">Process</option><option value="Business Environment">Business Environment</option></select><button class="secondary-action" id="restartQuiz">New quiz</button></div></div>
+        <div class="card" id="quizCard"></div>
+      </div>
+    </section>
+
+    <section class="view" id="flashcards">
+      <div class="section-head"><div><h2>Flashcards</h2><p class="sub">Tap the card to reveal. Mark cards you need to see again.</p></div><span class="pill" id="flashTag">Mindset</span></div>
+      <div class="flash-stage"><div class="flashcard" id="flashcard"><div class="face front"><div class="tiny">Tap to reveal</div><h2 id="flashFront">Servant leadership</h2></div><div class="face back"><h3 id="flashBackTitle">Meaning</h3><p id="flashBack">A leadership approach that puts the team first by enabling, coaching, and removing impediments.</p></div></div></div>
+      <div class="flash-count" id="flashCount">1 of 1</div>
+      <div class="flash-controls"><button class="secondary-action" id="flashPrev">← Previous</button><button class="secondary-action" id="flashAgain">Review again</button><button class="primary-action" id="flashNext">Next →</button></div>
+      <div class="card" style="max-width:730px;margin:auto"><h3>Review queue</h3><p class="sub" id="reviewQueueText">No cards queued for review.</p></div>
+    </section>
+
+    <section class="view" id="mock">
+      <div class="grid g2">
+        <article class="card">
+          <span class="chip" style="background:#f0edff;color:#7655e8">Timed practice</span>
+          <h2 style="margin-top:10px">30-question mock practice</h2>
+          <p class="sub">A focused, original simulation built from this app’s question bank. Use it to train pacing and error review — not as a predictor of the official exam score.</p>
+          <div class="mock-stat" style="margin-top:17px"><div><div class="timer" id="mockTimer">45:00</div><div class="sub">Time remaining</div></div><div class="progressbar" style="flex:1"><i id="mockProgress"></i></div></div>
+          <div class="btnrow"><button class="primary-action" id="startMock">Start 30-question mock</button><button class="secondary-action" id="stopMock">Reset</button></div>
+          <div class="alert" style="margin-top:15px">The official PMP exam’s 2026 format is 180 questions / 240 minutes. This 30-question mode is a compact practice sprint.</div>
+        </article>
+        <article class="card">
+          <h2>Practice history</h2><p class="sub">Your most recent timed results.</p><div id="mockHistory" class="note-list"></div>
+        </article>
+      </div>
+      <div class="card" style="margin-top:15px" id="mockQuizCard"><div class="empty">Start a mock practice to begin.</div></div>
+    </section>
+
+    <section class="view" id="formulas">
+      <div class="section-head"><div><h2>Formula lab</h2><p class="sub">Know the idea behind a number, not only the calculation.</p></div></div>
+      <div class="formula-grid">
+        <article class="formula"><h3>Cost Performance Index</h3><code>CPI = EV ÷ AC</code><p>Cost efficiency. Above 1.00 means the project is getting more value than it spends.</p><div class="calc"><label>EV / AC</label><div class="form-row"><input inputmode="decimal" id="cpiEv" placeholder="EV"><input inputmode="decimal" id="cpiAc" placeholder="AC"></div><div class="calc-result" id="cpiResult"></div></div></article>
+        <article class="formula"><h3>Schedule Performance Index</h3><code>SPI = EV ÷ PV</code><p>Schedule efficiency. Above 1.00 means the project is ahead of plan.</p><div class="calc"><label>EV / PV</label><div class="form-row"><input inputmode="decimal" id="spiEv" placeholder="EV"><input inputmode="decimal" id="spiPv" placeholder="PV"></div><div class="calc-result" id="spiResult"></div></div></article>
+        <article class="formula"><h3>Cost Variance</h3><code>CV = EV − AC</code><p>Positive is favorable; negative is over budget.</p><div class="calc"><label>EV / AC</label><div class="form-row"><input inputmode="decimal" id="cvEv" placeholder="EV"><input inputmode="decimal" id="cvAc" placeholder="AC"></div><div class="calc-result" id="cvResult"></div></div></article>
+        <article class="formula"><h3>Schedule Variance</h3><code>SV = EV − PV</code><p>Positive is ahead of schedule; negative is behind.</p><div class="calc"><label>EV / PV</label><div class="form-row"><input inputmode="decimal" id="svEv" placeholder="EV"><input inputmode="decimal" id="svPv" placeholder="PV"></div><div class="calc-result" id="svResult"></div></div></article>
+        <article class="formula"><h3>Estimate at Completion</h3><code>EAC = BAC ÷ CPI</code><p>Use when current cost performance is expected to continue.</p><div class="calc"><label>BAC / CPI</label><div class="form-row"><input inputmode="decimal" id="eacBac" placeholder="BAC"><input inputmode="decimal" id="eacCpi" placeholder="CPI"></div><div class="calc-result" id="eacResult"></div></div></article>
+        <article class="formula"><h3>To-Complete Performance Index</h3><code>TCPI = (BAC − EV) ÷ (BAC − AC)</code><p>Efficiency required from now on to meet the original budget.</p><div class="calc"><label>BAC / EV / AC</label><div class="form-row"><input inputmode="decimal" id="tcpiBac" placeholder="BAC"><input inputmode="decimal" id="tcpiEv" placeholder="EV"><input inputmode="decimal" id="tcpiAc" placeholder="AC"></div><div class="calc-result" id="tcpiResult"></div></div></article>
+      </div>
+    </section>
+
+    <section class="view" id="notes">
+      <div class="grid g2">
+        <article class="card">
+          <h2>My PMP notebook</h2>
+          <p class="sub">Use this for mistakes, project examples from your work, and concepts to revisit.</p>
+          <div class="form-row" style="margin-top:15px"><select id="noteCategory"><option>General</option><option>People</option><option>Process</option><option>Business Environment</option><option>Formula</option><option>Weak Area</option></select><input id="noteTitle" placeholder="Short title"></div>
+          <textarea class="notearea" id="noteBody" placeholder="Write your note here…"></textarea>
+          <div class="btnrow"><button class="primary-action" id="saveNote">Save note</button><button class="secondary-action" id="clearNote">Clear</button></div>
+        </article>
+        <article class="card">
+          <div class="section-head" style="margin-top:0"><div><h2>Saved notes</h2><p class="sub">Stored only on this device.</p></div><button class="linkbtn" id="exportNotes">Export notes</button></div>
+          <div class="note-list" id="noteList"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="view" id="settings">
+      <div class="grid g2">
+        <article class="card"><h2>App data</h2><p class="sub">Everything is stored locally in your browser. Backup before clearing browser data or switching device.</p><div class="settings-grid" style="margin-top:12px"><div class="settingrow"><div><b>Export backup</b><span>Save your progress, notes, queue, and history as a JSON file.</span></div><button class="secondary-action" id="exportData">Export</button></div><div class="settingrow"><div><b>Restore backup</b><span>Import a previous PMP Focus backup file.</span></div><label class="secondary-action" style="cursor:pointer">Import<input type="file" id="importData" accept=".json" style="display:none"></label></div><div class="settingrow"><div><b>Reset all app data</b><span>This removes local progress and notes permanently.</span></div><button class="dangerbtn" id="resetData">Reset</button></div></div></article>
+        <article class="card"><h2>Study baseline</h2><p class="sub">This version is designed around the PMP 2026 exam update effective 9 July 2026. It emphasizes value, adaptive delivery, AI awareness, sustainability, stakeholder engagement, and business outcomes.</p><div class="tip">For the official eligibility, application, and latest exam rules, confirm directly with PMI before registering.</div><div class="alert" style="margin-top:12px">This is a private study companion, not an official PMI product or course.</div></article>
+      </div>
+    </section>
+  </main>
+  <div class="footer">PMP Focus • Offline-first personal study companion • Original practice content only</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE_KEY = "pmpFocus2026_v1";
+const todayISO = () => new Date().toISOString().slice(0,10);
+const dayName = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const startOfToday = new Date(); startOfToday.setHours(0,0,0,0);
+
+const planTopics = [
+  // Week 1
+  ["PMP mindset & value delivery","Understand what the exam tests: judgement, outcomes, and context."],
+  ["PMBOK 8: what changed","Process groups return, value delivery, sustainability, and AI awareness."],
+  ["Project environments","Predictive, Agile, Hybrid — select an approach that fits uncertainty."],
+  ["Tailoring the approach","Adapt processes to size, complexity, criticality, and culture."],
+  ["Ethics & servant leadership","Lead with integrity, safety, transparency, and team enablement."],
+  ["Quiz & flashcards","10 mixed questions + first flashcard pass."],
+  ["Weekly review","Summarize insights and start your error log."],
+  // Week 2
+  ["Principles to practices","How PMBOK 8 links guiding principles to daily PM practices."],
+  ["Key roles","PM, sponsor, product owner, team — authority and accountability."],
+  ["Team charter & working agreements","Set a shared way of working before conflict becomes costly."],
+  ["Leadership styles & EQ","Situational leadership and emotional intelligence in practice."],
+  ["High-performing teams","Tuckman stages, psychological safety, and team development."],
+  ["Quiz & flashcards","10 questions focused on foundation + people."],
+  ["Weekly review","Review wrong answers and note the decision principle."],
+  // Week 3
+  ["Stakeholder identification","Map influence, interest, expectations, and attitudes."],
+  ["Stakeholder engagement","Move stakeholders from resistant to supportive deliberately."],
+  ["Communication planning","Choose channels and frequency based on stakeholder needs."],
+  ["Conflict management","Practice resolving conflict at the lowest constructive level."],
+  ["Negotiation & influence","Win-win negotiation with suppliers, sponsors, and teams."],
+  ["Quiz & flashcards","10 People-domain scenario questions."],
+  ["Weekly review","Update error log; re-read one weak lesson."],
+  // Week 4
+  ["Empowerment & coaching","Delegate outcomes, coach capability, remove impediments."],
+  ["Virtual & cross-cultural teams","Collaboration agreements across sites and time zones."],
+  ["Training & performance","Close skill gaps with mentoring, pairing, and training plans."],
+  ["Removing impediments","Protect team focus and unblock work quickly."],
+  ["Motivation theories","Herzberg, Maslow, intrinsic motivators — applied to teams."],
+  ["Quiz — People focus","10 People questions; target 70%+."],
+  ["People week review","Consolidate the People domain error log."],
+  // Week 5
+  ["Charter & business case","Why the project exists and what authorizes it."],
+  ["Requirements elicitation","Discover, clarify, validate, and manage requirements."],
+  ["Scope definition & WBS","Decompose deliverables into manageable work packages."],
+  ["Backlog & prioritization","MoSCoW, WSJF, and outcome-based ordering with the PO."],
+  ["Scope validation & control","Prevent gold plating and manage scope change formally."],
+  ["Quiz & flashcards","10 scope/requirements questions."],
+  ["Weekly review","Error log + flashcard repeat of missed cards."],
+  // Week 6
+  ["Activities & sequencing","Dependencies: FS, SS, FF, SF — mandatory vs discretionary."],
+  ["Leads, lags & network","Build and read a schedule network diagram."],
+  ["Critical path method","Forward/backward pass, float, and the critical path."],
+  ["Estimation techniques","Analogous, parametric, three-point (PERT), relative sizing."],
+  ["Schedule compression","Crashing vs fast tracking — cost vs risk trade-off."],
+  ["Quiz & flashcards","10 schedule questions incl. one CPM calculation."],
+  ["Weekly review","Redo any calculation you missed."],
+  // Week 7
+  ["Cost estimation & budget","Estimates, reserves, and the cost baseline."],
+  ["EVM basics","EV, PV, AC — what each number really means."],
+  ["CPI / SPI / CV / SV","Interpret performance and explain it to stakeholders."],
+  ["Forecasting","EAC, ETC, VAC, TCPI — choose the right formula."],
+  ["Formula drill","Use the built-in calculators; solve 10 numeric problems."],
+  ["Quiz — EVM scenarios","10 cost/EVM questions."],
+  ["Weekly review","Write formulas from memory; check with flashcards."],
+  // Week 8
+  ["Quality planning","Cost of quality: prevention beats inspection."],
+  ["QA vs QC","Audits, control charts, Pareto, fishbone — QC tools."],
+  ["Continuous improvement","PDCA, Kaizen, retrospectives, root cause analysis."],
+  ["Resource planning & RACI","Clarify who is Responsible, Accountable, Consulted, Informed."],
+  ["Physical resources & capacity","Balance team capacity, constraints, and commitments."],
+  ["Quiz & flashcards","10 quality/resource questions."],
+  ["Weekly review","Link one quality concept to your real QRQC/8D work."],
+  // Week 9
+  ["Risk identification","Find threats and opportunities early, from every angle."],
+  ["Risk analysis","Qualitative P-I matrix and quantitative techniques (EMV)."],
+  ["Threat responses","Avoid, transfer, mitigate, accept, escalate — when to use each."],
+  ["Opportunity responses & reserves","Exploit, share, enhance; contingency vs management reserve."],
+  ["Risk monitoring","Reassess, audit, and watch triggers; risks vs issues."],
+  ["Quiz — risk scenarios","10 risk questions."],
+  ["Weekly review","Update error log; flashcard pass."],
+  // Week 10
+  ["Make-or-buy & contracts","FFP, cost-reimbursable, T&M — risk allocation by type."],
+  ["Supplier selection","Evaluation criteria, negotiation, and ethics in procurement."],
+  ["Contract administration","Manage performance, claims, and vendor collaboration."],
+  ["Integrated change control","Assess impact, involve the right people, keep work transparent."],
+  ["Configuration management","Control product versions and documentation integrity."],
+  ["Quiz & flashcards","10 procurement/change questions."],
+  ["Process checkpoint","Consolidate the Process domain error log so far."],
+  // Week 11
+  ["Agile mindset & manifesto","Values and principles behind adaptive delivery."],
+  ["Scrum roles & events","PO, Scrum Master, developers; sprint events and timeboxes."],
+  ["Scrum artifacts & DoD","Backlogs, increment, and a clear Definition of Done."],
+  ["Kanban & flow","WIP limits, cycle time, and cumulative flow diagrams."],
+  ["Agile estimation","Story points, velocity, and planning poker."],
+  ["Quiz — agile scenarios","10 agile questions."],
+  ["Weekly review","Error log + flashcards on agile terms."],
+  // Week 12
+  ["Release & iteration planning","Roadmaps, releases, and iteration goals."],
+  ["Agile metrics","Burndown, burnup, velocity trends — and their limits."],
+  ["Hybrid in practice","Combine predictive milestones with adaptive delivery."],
+  ["Scaling & multiple teams","Dependencies, integration, and cross-team coordination."],
+  ["Retrospectives","Turn inspection into concrete improvement actions."],
+  ["Quiz & flashcards","10 hybrid/agile questions."],
+  ["Weekly review","Note where hybrid fits your NPI/MP world."],
+  // Week 13
+  ["Strategy alignment","Connect project objectives to organizational strategy."],
+  ["Benefits realization","Plan, track, and hand over benefits beyond project end."],
+  ["Business value measurement","NPV, ROI, payback — value in decisions."],
+  ["Compliance requirements","Regulatory, safety, and quality compliance in scope."],
+  ["Governance structures","Stage gates, steering committees, decision authority."],
+  ["Quiz — Business focus","10 Business Environment questions."],
+  ["Weekly review","Error log update."],
+  // Week 14
+  ["Organizational change","Help users adopt what the project delivers."],
+  ["Sustainability in projects","Triple bottom line: people, planet, profit."],
+  ["AI in project management","Use AI as augmentation with human accountability."],
+  ["External environment","PESTLE scanning and responding to market shifts."],
+  ["Value delivery system","Portfolios, programs, projects delivering value together."],
+  ["Quiz & flashcards","10 PMBOK 8 theme questions."],
+  ["Business checkpoint","Consolidate the Business Environment error log."],
+  // Week 15
+  ["Leading vs lagging indicators","Predictive signals vs results after the fact."],
+  ["Dashboards & radiators","Make performance visible without vanity metrics."],
+  ["Baselines & variance","Compare plan vs actual and decide on action."],
+  ["Tailored metrics","Choose measures that drive the right behavior."],
+  ["Formula full drill","All EVM + schedule formulas from memory."],
+  ["Quiz — mixed 10","Random 10 across all domains."],
+  ["Weekly review","Error log + weakest flashcards."],
+  // Week 16
+  ["People recap","Re-read People lessons; summarize in your own words."],
+  ["Process recap (predictive)","Scope, schedule, cost, quality, risk in one page."],
+  ["Process recap (agile)","Scrum, Kanban, hybrid decision rules."],
+  ["Business recap","Value, governance, compliance, sustainability, AI."],
+  ["Full flashcard cycle","Every card once; mark the hard ones."],
+  ["Mini-mock 30 questions","Timed 45-minute mock."],
+  ["Mock review","Analyze every wrong answer — principle, not memorization."],
+  // Week 17
+  ["Re-read weakest lessons","Pick 2 lessons with lowest confidence."],
+  ["People drill","15 People questions from the quiz bank."],
+  ["Process drill","15 Process questions."],
+  ["Business drill","10 Business Environment questions."],
+  ["Error log principles","Turn each error into a one-line decision rule."],
+  ["Mini-mock 30 questions","Timed 45-minute mock."],
+  ["Mock review","Update readiness notes."],
+  // Week 18
+  ["Flashcard mastery","Clear the review queue completely."],
+  ["Situational judgement drill","First / next / best — 10 scenarios."],
+  ["Calculation drill","EVM + PERT + comms channels, 10 problems."],
+  ["Agile drill","10 agile/hybrid questions."],
+  ["Weak topic study","One focused hour on your weakest topic."],
+  ["Mini-mock 30 questions","Timed mock."],
+  ["Mock review","Error log update."],
+  // Week 19
+  ["Value delivery deep dive","Outcomes over outputs — exam framing."],
+  ["Governance & escalation","When and how to escalate to governance."],
+  ["Sustainability scenarios","Decisions balancing cost, environment, stakeholders."],
+  ["AI scenarios","Data quality, privacy, oversight in AI-assisted PM."],
+  ["Tailoring scenarios","Choose approach by context, not preference."],
+  ["Quiz — PMBOK 8 themes","10 questions on new emphases."],
+  ["Weekly review","Error log update."],
+  // Week 20
+  ["Understand-first patterns","Analyze before acting: spotting the trap options."],
+  ["Collaborate-first patterns","Team and stakeholder options that win."],
+  ["Process-first patterns","Change control, backlog, risk register responses."],
+  ["Escalation patterns","When escalate really is the right answer."],
+  ["Mixed judgement drill","15 scenario questions."],
+  ["Quiz — mixed 10","Random 10 across all domains."],
+  ["Weekly review","Refine your answer framework."],
+  // Week 21
+  ["Mock 30 (People-heavy)","Timed mock; note timing per question."],
+  ["Mock review","Every wrong answer to the error log."],
+  ["Mock 30 (Process-heavy)","Timed mock."],
+  ["Mock review","Error log update."],
+  ["Weak domain hour","Study the domain with the lowest mock score."],
+  ["Mock 30 (mixed)","Timed mock."],
+  ["Weekly mock analysis","Trend your scores; adjust the coming weeks."],
+  // Week 22
+  ["Half exam simulation","90 questions / 115 min if possible; else 2×30."],
+  ["Deep review part 1","Review first half of the simulation."],
+  ["Deep review part 2","Finish review; extract decision rules."],
+  ["Flashcards + formulas","Full pass; must be automatic now."],
+  ["Weak topic study","Focused hour."],
+  ["Mock 30 (mixed)","Timed mock."],
+  ["Weekly review","Score trend + error log."],
+  // Week 23
+  ["Mock 30 (mixed)","Timed mock."],
+  ["Mock review","Error log update."],
+  ["Weakest domain drill","15 questions in your weakest domain."],
+  ["Second weakest drill","15 questions."],
+  ["Lesson skim","Skim all lesson rules (กฎจำง่าย) in one sitting."],
+  ["Mock 30 (mixed)","Timed mock."],
+  ["Weekly review","Confirm readiness ≥ target."],
+  // Week 24
+  ["Full mock day 1","90 questions timed — first half of a full exam."],
+  ["Full mock day 2","90 questions timed — second half."],
+  ["Full review day 1","Review half 1 in depth."],
+  ["Full review day 2","Review half 2 in depth."],
+  ["Stamina & pacing notes","Plan breaks, pacing (about 75 sec/question)."],
+  ["Flashcard sweep","Only the cards you still miss."],
+  ["Weekly review","Decide final focus areas."],
+  // Week 25
+  ["Error log week 1-10","Re-answer every logged error from early weeks."],
+  ["Error log week 11-18","Re-answer mid-plan errors."],
+  ["Error log week 19-24","Re-answer recent errors."],
+  ["Persistent errors","Study the topics you still get wrong."],
+  ["Teach-back","Explain 5 hard concepts aloud in your own words."],
+  ["Mock 30 (mixed)","Timed mock."],
+  ["Weekly review","Error log should be shrinking."],
+  // Week 26
+  ["People final review","Leadership, conflict, stakeholder one-pager."],
+  ["Process final review","Predictive flow + formulas one-pager."],
+  ["Agile final review","Scrum/Kanban/hybrid one-pager."],
+  ["Business final review","Value, governance, compliance, sustainability, AI."],
+  ["Formula certification","Write all formulas perfectly from memory."],
+  ["Mock 30 (mixed)","Timed mock — aim for your best score."],
+  ["Weekly review","Confidence check per domain."],
+  // Week 27
+  ["Exam logistics","Confirm booking, ID, location/online rules, breaks."],
+  ["Light mock 30","Timed but relaxed; focus on calm pacing."],
+  ["Mock review","Light review — principles only."],
+  ["Mindset review","Re-read Lesson 1 and your decision framework."],
+  ["Flashcards — hard only","Short session."],
+  ["Rest / light review","Maximum 30 minutes; protect sleep."],
+  ["Weekly review","You are nearly there."],
+  // Week 28
+  ["Light review","Lesson rules + formulas only, 40 minutes."],
+  ["Flashcards — final pass","Hard cards only."],
+  ["Walk-through","Visualize exam day: timing, breaks, flag-and-move strategy."],
+  ["Rest day","No new content. Light exercise, good sleep."],
+  ["Final confidence pass","Skim your one-pagers; stop early."],
+  ["Pre-exam rest","Prepare documents; sleep early."],
+  ["Exam day / buffer","Trust your preparation. คุณพร้อมแล้ว 💪"],
+];
+while(planTopics.length < 196) planTopics.push(["Adaptive revision","Use your quiz results to revisit a weak topic and note the decision principle."]);
+
+const modules = [
+["01","Foundation & mindset","PMP thinking, value delivery, ways of working, ethics."],
+["02","People","Leadership, conflict, stakeholders, team performance."],
+["03","Process","Scope, schedule, cost, quality, risk, procurement, change."],
+["04","Agile & hybrid","Adaptive delivery, Scrum, Kanban, planning, metrics."],
+["05","Business environment","Benefits, strategy, change, sustainability, AI awareness."],
+["06","Exam readiness","Formula interpretation, mocks, error log, exam tactics."]
+];
+
+const questions = [
+{d:"People",q:"A skilled team member has become quiet in meetings after a disagreement with another colleague. What should the project manager do first?",o:["Reassign the team member to another task immediately.","Meet privately to understand the situation and facilitate a constructive discussion.","Escalate both team members to functional managers.","Document the incident as a project risk."],a:1,e:"Address interpersonal issues early and directly. First understand the situation and support a constructive resolution before escalation or reassignment."},
+{d:"People",q:"An Agile team repeatedly waits for the project manager to assign work. What is the best action?",o:["Assign tasks faster so the sprint stays on schedule.","Coach the team on self-management and use sprint planning to pull work.","Report the team’s lack of ownership to the sponsor.","Replace the least proactive team members."],a:1,e:"Agile teams should self-manage. Coaching and a clear pull-based planning process build capability without creating dependency."},
+{d:"People",q:"Two senior stakeholders disagree about product priorities. What should the project manager do?",o:["Choose the priority that seems easier to deliver.","Ask the sponsor to decide without further discussion.","Facilitate a discussion focused on customer value, objectives, and decision criteria.","Implement both requests to keep everyone satisfied."],a:2,e:"A PM should facilitate alignment using agreed objectives and value criteria. Avoid unilateral decisions or scope expansion."},
+{d:"People",q:"A distributed team has missed several handoffs because messages are overlooked. What is the best first action?",o:["Create a communication working agreement with channels, response times, and ownership.","Require every person to send a daily status email to the PM.","Escalate the issue to the steering committee.","Move all team members to the same time zone."],a:0,e:"Set a shared operating agreement that makes communication expectations explicit and sustainable."},
+{d:"People",q:"A sponsor praises one person publicly, causing friction among the team. What should the PM do?",o:["Ignore it because the sponsor controls recognition.","Privately discuss team recognition practices with the sponsor and reinforce shared achievements.","Ask the praised person to decline recognition.","Send a message explaining that everyone deserves equal credit."],a:1,e:"Protect team cohesion through respectful stakeholder engagement and reinforce collaborative outcomes."},
+{d:"People",q:"During a retrospective, team members do not raise concerns. What should the Scrum Master / PM do?",o:["End the retrospective early.","Identify who is withholding information and confront them.","Create psychological safety using neutral prompts and an anonymous input option.","Ask the product owner to attend all future retrospectives."],a:2,e:"Psychological safety enables honest inspection and adaptation. Facilitation methods can help participation without blame."},
+{d:"People",q:"A functional manager reassigns a key specialist without notice. What should the project manager do first?",o:["Escalate to the CEO.","Update the schedule and accept the impact.","Meet with the functional manager to understand the constraint and explore alternatives.","Tell the team to work overtime until a replacement arrives."],a:2,e:"Collaborate first to understand the resource constraint and identify feasible alternatives before escalation or corrective action."},
+{d:"People",q:"A new team member challenges every decision, slowing meetings. What should the PM do?",o:["Remove the person from meetings.","Establish meeting norms and use a structured decision process.","Ignore the interruptions until the person adjusts.","Ask the sponsor to issue a warning."],a:1,e:"Working agreements and transparent decision rules allow healthy challenge while preventing meetings from becoming unproductive."},
+{d:"People",q:"A team reports burnout after a high-pressure release. Which action best reflects servant leadership?",o:["Tell them the deadline was necessary and move to the next release.","Recognize the effort, assess workload, and remove impediments before recommitting.","Offer individual bonuses but keep the same plan.","Ask the sponsor to add more scope to maximize the momentum."],a:1,e:"Servant leadership focuses on team health, capacity, and sustainable pace."},
+{d:"People",q:"A stakeholder sends angry messages to individual developers. What should the PM do?",o:["Tell developers to respond immediately.","Establish a respectful communication path and address the stakeholder’s concern directly.","Block the stakeholder from all project communication.","Forward every message to the sponsor."],a:1,e:"Protect the team and maintain stakeholder engagement by setting a respectful, transparent channel for resolution."},
+
+{d:"Process",q:"A customer requests a feature that was not included in the current release scope. What should the PM do first?",o:["Tell the team to start work immediately.","Assess the request’s impact and follow the agreed change / backlog process.","Reject the request because the baseline cannot change.","Ask the customer to wait until project closeout."],a:1,e:"A requested change should be understood and evaluated through the appropriate governance or backlog prioritization process."},
+{d:"Process",q:"A project has CPI = 0.82 and SPI = 1.06. What is the best interpretation?",o:["The project is under budget and behind schedule.","The project is over budget and ahead of schedule.","The project is under budget and ahead of schedule.","The project is over budget and behind schedule."],a:1,e:"CPI below 1 means cost inefficiency / over budget. SPI above 1 means ahead of schedule."},
+{d:"Process",q:"A supplier says a critical component will be late. What should the PM do first?",o:["Immediately terminate the supplier contract.","Update the risk register as a new risk.","Confirm the actual issue, impact, and recovery options with the supplier and team.","Inform the customer that the project will be delayed."],a:2,e:"This is an active issue, not merely a risk. First analyze impact and response options with the right people."},
+{d:"Process",q:"A defect is discovered in user acceptance testing. Which action is best?",o:["Add more final inspections to catch future defects.","Perform root-cause analysis and improve the process to prevent recurrence.","Close the defect because the project is near completion.","Ask the tester to retest without recording it."],a:1,e:"Quality management aims to prevent recurrence through root-cause analysis and process improvement."},
+{d:"Process",q:"The team is unsure whether a new regulation applies to the project. What should the PM do?",o:["Ignore it until the regulator contacts the company.","Ask a qualified compliance expert to assess applicability and project impact.","Tell the customer to accept all liability.","Add the regulation to the lessons learned register after delivery."],a:1,e:"Use subject-matter expertise to confirm compliance requirements early and integrate the impact into the plan."},
+{d:"Process",q:"A risk has a high impact but a low probability. What is the best response?",o:["Ignore it because probability is low.","Analyze it and plan a proportionate response, including triggers and ownership.","Move it directly to the issue log.","Ask the sponsor to accept it without information."],a:1,e:"Low probability does not eliminate high-impact exposure. Plan proportionately and monitor triggers."},
+{d:"Process",q:"During iteration planning, the team pulls more work than its historical capacity. What should the PM / Scrum Master do?",o:["Allow it; ambitious goals always increase productivity.","Use historical data to discuss capacity and reduce commitment to a sustainable level.","Assign overtime to ensure all items finish.","Ask the sponsor to prioritize every item as urgent."],a:1,e:"Use evidence-based planning and sustainable pace. Overcommitment hides risk rather than improving flow."},
+{d:"Process",q:"A new risk response will require extra budget. What should be done first?",o:["Spend the contingency without telling anyone.","Assess the response’s cost, benefit, and authority level before deciding.","Avoid the response to protect the baseline.","Ask the team to fund it from personal expense claims."],a:1,e:"Evaluate the response and follow governance for funding/authority; contingency use should be transparent."},
+{d:"Process",q:"A project is behind schedule due to a dependency owned by another department. What should the PM do first?",o:["Blame the department in the next steering meeting.","Meet with the dependency owner to understand the constraint and agree a recovery plan.","Add resources to unrelated tasks.","Reduce quality requirements to recover time."],a:1,e:"Collaborative dependency management starts with understanding the constraint and creating a realistic recovery plan."},
+{d:"Process",q:"An executive asks for a single report that shows project health. Which information is most useful?",o:["A list of every completed task.","Current outcomes, key risks/issues, forecast, decisions needed, and next milestones.","Only the schedule baseline.","A detailed timesheet for every team member."],a:1,e:"Executives need value-focused, decision-ready information—not raw operational detail."},
+{d:"Process",q:"A project manager learns that a team is using an unapproved tool that may expose customer data. What should happen first?",o:["Wait until the next audit.","Assess the security/compliance impact and stop unsafe use through the appropriate process.","Tell the team to delete all evidence.","Continue because it improves productivity."],a:1,e:"Protect data and compliance immediately; investigate and use the organization’s approved governance path."},
+{d:"Process",q:"A deliverable meets documented requirements but customers find it difficult to use. What should the PM do?",o:["Declare success because requirements were met.","Gather user feedback and improve validation criteria / product usability.","Ask users to attend more training without reviewing the solution.","Remove the user feedback from the project records."],a:1,e:"Requirements fulfillment alone is insufficient if the outcome fails usability or value. Use feedback to improve validation."},
+{d:"Process",q:"The team has frequent unplanned work. Which practice best improves flow?",o:["Increase work in progress so everyone stays busy.","Make work visible, classify incoming work, and limit WIP.","Stop tracking incidents.","Require longer status meetings."],a:1,e:"Visualizing work and limiting WIP helps reveal bottlenecks and protect flow."},
+{d:"Process",q:"A stakeholder asks why a change was not implemented. The PM cannot find the decision record. What process should be strengthened?",o:["Stakeholder analysis","Integrated change control / transparent backlog decision tracking","Resource calendar management","Procurement closure"],a:1,e:"Change decisions need traceability: request, analysis, decision, owner, and communication."},
+
+{d:"Business Environment",q:"A project is delivering outputs on time, but the sponsor says the expected business benefit is no longer likely. What should the PM do?",o:["Continue because scope and schedule are on track.","Reassess the business case, benefits, and options with the sponsor.","Hide the information until project close.","Only increase quality inspections."],a:1,e:"Delivery must remain aligned to expected value. A changed benefits case may require adaptation, redirection, or termination."},
+{d:"Business Environment",q:"A new AI tool could reduce planning effort, but its data handling is unclear. What is the best first action?",o:["Adopt it immediately to show innovation.","Ask the team to use personal accounts.","Assess privacy, security, bias, governance, and human accountability before use.","Reject all AI tools permanently."],a:2,e:"Responsible adoption balances potential value with data, ethics, bias, security, governance, and accountability."},
+{d:"Business Environment",q:"A sustainability requirement may increase upfront cost but reduces lifecycle waste. How should the PM respond?",o:["Reject it because cost is higher today.","Assess lifecycle value, stakeholder priorities, and strategic / compliance implications.","Implement it secretly.","Ask the team to absorb the added cost without analysis."],a:1,e:"The PMP 2026 emphasis includes outcomes and long-term value. Consider lifecycle impact, not only immediate cost."},
+{d:"Business Environment",q:"A major organizational restructuring affects project decision rights. What should the PM do first?",o:["Continue using old governance without discussion.","Clarify the new governance, roles, stakeholders, and escalation paths.","Pause all project work indefinitely.","Ask individual team members to choose their own approvers."],a:1,e:"Organizational changes alter decision rights and stakeholder context. Reconfirm governance promptly."},
+{d:"Business Environment",q:"A new market competitor releases a similar product. What should the PM do?",o:["Ignore external news; it is not a project concern.","Assess strategic impact with the sponsor and revisit priorities, scope, and time-to-market options.","Tell the team to work nights without a decision.","Cancel all quality activities."],a:1,e:"External changes can affect the business case. Bring relevant data to sponsor-level strategic decisions."},
+{d:"Business Environment",q:"A project requires user adoption after launch. Which approach is best?",o:["Focus only on technical deployment.","Plan change management: impacts, communication, training, champions, and feedback.","Wait for complaints after go-live.","Require users to adapt without support."],a:1,e:"Benefits depend on adoption. Change management should be planned, not treated as a post-launch problem."},
+{d:"Business Environment",q:"A global project’s local regulations conflict with a preferred process. What should the PM do?",o:["Use the preferred process globally without exception.","Follow applicable legal requirements and tailor the process with appropriate experts.","Ask local teams to ignore the regulation.","Delay discussion until audit."],a:1,e:"Compliance is non-negotiable. Tailor the approach with legal/compliance expertise."},
+{d:"Business Environment",q:"A sponsor asks the PM to hide a negative forecast until the quarterly review. What is the best response?",o:["Agree because the sponsor owns the project.","Provide transparent, factual reporting and discuss recovery options through proper governance.","Change the forecast so it looks better.","Share the forecast only with developers."],a:1,e:"Ethical practice requires honesty and transparent reporting; pair bad news with options, not concealment."},
+{d:"Business Environment",q:"An organization’s strategy now prioritizes cash preservation. What project action is most appropriate?",o:["Continue the original spending plan without review.","Revisit sequencing, funding, benefits timing, and scope options with decision makers.","Use all remaining budget before it is removed.","Tell the team the strategy is irrelevant."],a:1,e:"Strategy changes may affect investment, timing, scope, and benefits. Reassess in a value-focused way."},
+{d:"Business Environment",q:"A project’s customer is not represented in governance, leading to late surprises. What should the PM do?",o:["Add appropriate customer representation / feedback mechanisms to stakeholder governance.","Ask the customer to accept all completed outputs.","Continue with internal approvals only.","Reduce project transparency."],a:0,e:"Ensure the right voices are engaged early enough to influence direction and prevent value-destroying surprises."},
+{d:"Business Environment",q:"A public commitment includes a social-impact target. What should the PM do?",o:["Treat it as marketing only.","Define measurable outcomes, ownership, and monitoring alongside delivery metrics.","Remove it because it is difficult to measure.","Track it only after project closure."],a:1,e:"Translate strategic and social commitments into measurable outcomes and governance, not vague intentions."},
+{d:"Business Environment",q:"A project faces uncertainty that cannot be resolved with existing data. What approach is best?",o:["Delay indefinitely until certainty is available.","Use a small experiment / prototype to learn and adapt.","Make a large irreversible commitment immediately.","Hide uncertainty from stakeholders."],a:1,e:"In complex uncertainty, probes and experiments generate evidence and enable adaptive decisions."},
+{d:"Business Environment",q:"A project team sees signs that a vendor’s labor practices may violate company standards. What should the PM do?",o:["Ignore it because delivery is on track.","Escalate through procurement/compliance channels and assess supplier obligations.","Ask the vendor to promise improvement informally.","Wait until the contract ends."],a:1,e:"Responsible project leadership includes ethical sourcing and compliance; use the appropriate governance path."},
+// ===== Added: expanded bank (People) =====
+{d:"People",q:"Two senior engineers strongly disagree on a technical design, and the sprint is stalling. What should the project manager do first?",o:["Choose the design proposed by the more experienced engineer.","Facilitate a discussion focused on project objectives and evaluation criteria.","Escalate the disagreement to the engineering director.","Postpone the decision until the next sprint."],a:1,e:"Facilitate collaborative problem solving against shared criteria. Deciding for the team, escalating, or delaying all avoid the real conflict."},
+{d:"People",q:"A new team member from another region rarely speaks in hybrid team meetings. What is the best first action?",o:["Ask them to present at every meeting so they participate more.","Talk with them privately to understand communication preferences and adjust working agreements.","Report the low engagement to their functional manager.","Assign them only individual tasks that require no meetings."],a:1,e:"Understand cultural and communication preferences first, then adapt team agreements. Forcing exposure or isolating the person damages psychological safety."},
+{d:"People",q:"A key stakeholder keeps assigning work directly to team members, bypassing the agreed process. What should the PM do?",o:["Tell the team to ignore all requests from that stakeholder.","Meet the stakeholder, understand their needs, and reinforce the agreed communication and intake process.","Escalate the stakeholder's behavior to the sponsor immediately.","Add all bypassed work to the plan to keep the stakeholder satisfied."],a:1,e:"Engage the stakeholder directly and restore the agreed process. Escalation comes only if collaboration fails."},
+{d:"People",q:"A team member confidentially reports inappropriate behavior by a colleague. What should the project manager do?",o:["Wait to see if the situation resolves itself.","Follow organizational policy promptly while protecting confidentiality.","Discuss the report openly in the next team meeting.","Move the reporting team member to another project."],a:1,e:"Act promptly per organizational policy and protect the people involved. Ignoring, exposing, or penalizing the reporter are all wrong."},
+{d:"People",q:"After weeks of overtime, team velocity and quality are dropping. What should the PM do first?",o:["Add more overtime to recover the schedule.","Investigate the root cause and rebalance workload toward a sustainable pace.","Replace the slowest team members.","Reduce testing to free up capacity."],a:1,e:"Unsustainable pace destroys throughput and quality. Understand the cause and restore a sustainable workload."},
+{d:"People",q:"The sponsor asks the PM to skip part of testing to hit a launch date. What is the best response?",o:["Comply, because the sponsor has authority.","Present the quality and value impact with options, and process any change through change control.","Refuse and continue the original plan without discussion.","Ask the team to test secretly after launch."],a:1,e:"Protect value transparently: show impact, offer options, and use the change process rather than silent compliance or refusal."},
+{d:"People",q:"A distributed team across time zones keeps missing key information. What is the best action?",o:["Require everyone to attend meetings in the head office time zone.","Establish communication agreements with overlap hours and asynchronous documentation.","Send more emails to everyone for every topic.","Centralize all decisions with the project manager."],a:1,e:"Agree explicit communication norms: overlap windows, async records, and clear channels — not one-time-zone dominance or email floods."},
+{d:"People",q:"A critical task requires a skill the assigned team member lacks. What should the PM do first?",o:["Reassign the task to an external contractor immediately.","Arrange training or pair the member with an experienced colleague.","Accept lower quality for this deliverable.","Escalate the skill gap to HR."],a:1,e:"Develop the team first: training, mentoring, or pairing closes the gap and builds capability."},
+{d:"People",q:"Which conflict resolution approach most often produces a lasting result?",o:["Smoothing over the differences.","Collaborating to solve the underlying problem together.","Forcing a quick decision by authority.","Withdrawing until emotions cool permanently."],a:1,e:"Collaboration (problem solving) addresses root causes and produces commitment; the others suppress or delay the conflict."},
+{d:"People",q:"A PM inherits a demotivated team from a troubled project. What should be done first?",o:["Set aggressive new targets to create urgency.","Meet team members individually to listen and identify motivators and impediments.","Announce that underperformance will not be tolerated.","Request replacement of the entire team."],a:1,e:"Understand before acting: listen, identify impediments and motivators, then rebuild engagement."},
+{d:"People",q:"A functional manager pulls a key resource in the middle of an iteration. What should the PM do first?",o:["Escalate to the sponsor immediately.","Discuss priorities and impact with the functional manager to negotiate a solution.","Accept the loss and reduce scope silently.","Instruct the resource to ignore the functional manager."],a:1,e:"Negotiate directly with the functional manager using impact data. Escalate only if negotiation fails."},
+{d:"People",q:"The team resists a new quality process introduced by the organization. What is the best approach?",o:["Enforce compliance and monitor the team closely.","Explain the purpose and involve the team in adapting the process to their work.","Delay adoption until the next project.","Report resistant members to management."],a:1,e:"Ownership comes from purpose and participation. Involve the team in tailoring the process instead of enforcing or avoiding it."},
+// ===== Added: expanded bank (Process) =====
+{d:"Process",q:"A deliverable is rejected during validation because requirements were interpreted differently. What should the PM do first?",o:["Rework the deliverable to match the customer's latest comments.","Analyze the gap with the stakeholders and clarify the requirement before proposing changes.","Escalate the rejection to the sponsor.","Log the rejection as a risk."],a:1,e:"First understand the gap with stakeholders; then correct requirements and rework through the proper change process."},
+{d:"Process",q:"A project reports CPI 0.85 and SPI 1.10. What is the correct interpretation?",o:["Under budget and behind schedule.","Over budget and ahead of schedule.","Over budget and behind schedule.","Under budget and ahead of schedule."],a:1,e:"CPI below 1 means cost inefficiency (over budget); SPI above 1 means ahead of schedule."},
+{d:"Process",q:"BAC is 200,000, EV is 80,000, AC is 100,000, and current cost performance is expected to continue. What is the EAC?",o:["220,000","250,000","180,000","300,000"],a:1,e:"CPI = 80,000/100,000 = 0.8. EAC = BAC/CPI = 200,000/0.8 = 250,000."},
+{d:"Process",q:"A supplier delay threatens an activity on the critical path. What should the PM do first?",o:["Immediately inform the customer that the end date will slip.","Assess the impact and evaluate options such as crashing or fast tracking before deciding.","Terminate the supplier contract.","Add the delay to the issue log and continue."],a:1,e:"Analyze impact and recovery options first; then act and communicate. Announcing a slip or firing the supplier before analysis is premature."},
+{d:"Process",q:"What is the main risk of fast tracking a schedule?",o:["Higher direct labor cost.","Increased rework and risk from performing activities in parallel.","Reduced team morale.","Loss of management reserve."],a:1,e:"Fast tracking overlaps activities, which increases rework risk. Crashing is the option that mainly increases cost."},
+{d:"Process",q:"A high-probability, high-impact cost risk could be handled by a specialized third party. What is the most appropriate response?",o:["Accept the risk and add contingency.","Transfer the risk through a contract or insurance.","Escalate the risk to the portfolio level.","Avoid the risk by removing the deliverable."],a:1,e:"Shifting impact to a party better able to manage it is risk transfer, typically via contracts or insurance."},
+{d:"Process",q:"An early component delivery could significantly reduce cost if the team reorganizes work. This opportunity is best handled by which response?",o:["Accept","Exploit","Transfer","Mitigate"],a:1,e:"Exploiting ensures the opportunity is realized by actively changing the plan to capture it."},
+{d:"Process",q:"The scope of the work cannot be defined clearly yet, but the buyer needs to start soon. Which contract type fits best?",o:["Firm fixed price (FFP)","Time and materials (T&M)","Fixed price with economic price adjustment","Lump sum turnkey"],a:1,e:"When scope is unclear, T&M or cost-reimbursable contracts fit; FFP requires well-defined scope."},
+{d:"Process",q:"A change request has just been approved by the change control board. What should the PM do next?",o:["Start the work immediately without further updates.","Update the affected baselines and plans, then communicate to stakeholders.","Ask the sponsor to re-approve the change.","Close the change request."],a:1,e:"Approved changes must be reflected in baselines and plans and communicated before or as work proceeds."},
+{d:"Process",q:"Quality control repeatedly finds the same defect on an assembly line deliverable. What should the PM support first?",o:["Increase final inspection sampling.","Perform root cause analysis and implement corrective action.","Penalize the operators involved.","Ship the units and repair later in the field."],a:1,e:"Recurring defects need root cause analysis (e.g., fishbone, 5 whys) and corrective action — prevention over inspection."},
+{d:"Process",q:"What is the primary purpose of WIP limits in a Kanban system?",o:["To make individual utilization reach 100%.","To improve flow and expose bottlenecks.","To guarantee fixed delivery dates.","To reduce the need for retrospectives."],a:1,e:"Limiting work in progress smooths flow and makes bottlenecks visible so the team can fix them."},
+{d:"Process",q:"Mid-sprint, the team finds a backlog item too ambiguous to build, and the product owner is traveling. What should be done?",o:["Guess the intent and build the most likely version.","Contact the PO or an agreed proxy for clarification and pull the next ready item meanwhile.","Cancel the sprint.","Remove the item from the product backlog permanently."],a:1,e:"Seek clarification through the PO or proxy while keeping flow with ready work — never guess on ambiguous requirements."},
+{d:"Process",q:"In a hybrid project, an urgent production defect competes with committed sprint work. What is the best action?",o:["Ignore the defect until the next sprint.","Assess impact with the product owner and reprioritize the backlog transparently.","Silently add the defect to the sprint and work overtime.","Escalate to the steering committee first."],a:1,e:"Urgent work is assessed and reprioritized with the PO through the backlog — transparent trade-offs, not silent overload."},
+{d:"Process",q:"A developer added an extra feature the customer never requested, saying it adds value. What should the PM do?",o:["Thank the developer and include the feature.","Explain that only approved scope is delivered and assess the addition through change control if valuable.","Remove the developer from the project.","Ask the customer to pay for the feature."],a:1,e:"This is gold plating. Deliver approved scope; genuinely valuable ideas go through the change/backlog process."},
+{d:"Process",q:"Using three-point (PERT beta) estimation with Optimistic 4, Most Likely 6, Pessimistic 14 days, the expected duration is:",o:["6 days","7 days","8 days","9 days"],a:1,e:"(O + 4M + P) / 6 = (4 + 24 + 14)/6 = 42/6 = 7 days."},
+{d:"Process",q:"After the schedule baseline is approved, a stakeholder demands a significant new feature. What should the PM do first?",o:["Add the feature since the stakeholder is influential.","Assess the impact and submit it through integrated change control.","Reject the request to protect the baseline.","Ask the team to absorb the work without changing the baseline."],a:1,e:"Baseline changes go through impact analysis and change control — neither automatic acceptance nor flat rejection."},
+{d:"Process",q:"When should lessons learned be captured?",o:["Only during project closing.","Throughout the project, and consolidated at phase and project end.","Only after a major failure.","Only when the PMO requests them."],a:1,e:"Capture lessons continuously so the current project benefits, then consolidate at closure."},
+{d:"Process",q:"What is the key difference between configuration management and change control?",o:["They are identical processes.","Configuration management controls product versions and characteristics; change control manages changes to baselines and plans.","Configuration management applies only to software.","Change control is performed only by the sponsor."],a:1,e:"Configuration management keeps product/document versions consistent; change control governs modifications to the agreed baselines."},
+// ===== Added: expanded bank (Business Environment) =====
+{d:"Business Environment",q:"A new safety regulation announced mid-project affects the product design. What should the PM do first?",o:["Continue as planned since the baseline was approved earlier.","Assess the compliance impact, update risks and plans, and inform stakeholders.","Wait for the customer to raise the issue.","Escalate to legal and pause all work."],a:1,e:"Compliance is mandatory: assess impact promptly, adjust through proper processes, and communicate."},
+{d:"Business Environment",q:"A market shift makes the project's business case questionable. What should the PM do?",o:["Accelerate delivery before anyone notices.","Present the analysis to the sponsor/governance to decide whether to continue, change, or terminate.","Terminate the project on their own authority.","Reduce scope quietly to cut losses."],a:1,e:"Continue/terminate decisions belong to governance. The PM's duty is transparent analysis and escalation."},
+{d:"Business Environment",q:"Most of the project's benefits will be realized a year after closure. Who is primarily responsible for tracking them?",o:["The project manager, indefinitely.","The business owner, according to the benefits realization plan handed over at closure.","The PMO administrator.","No one; benefits after closure are not tracked."],a:1,e:"The PM ensures a benefits realization plan and clean handover; the business/benefit owner tracks realization after closure."},
+{d:"Business Environment",q:"According to PMBOK 8's emphasis, project success is best described as:",o:["Delivering all outputs on time and budget.","Delivering outcomes and value aligned with organizational strategy.","Completing every planned process.","Avoiding all changes to the baseline."],a:1,e:"PMBOK 8 stresses value delivery: outcomes and business value, not just on-time outputs."},
+{d:"Business Environment",q:"A cheaper material meets specs but is non-recyclable and conflicts with the customer's sustainability policy. What should the PM do?",o:["Choose it — lowest cost wins.","Evaluate the decision against the triple bottom line and the customer's policy with stakeholders.","Use it without informing the customer.","Automatically pick the most expensive eco option."],a:1,e:"Sustainability decisions balance people, planet, and profit and must respect stakeholder policies — neither cost-only nor cost-blind."},
+{d:"Business Environment",q:"The team proposes an AI tool to auto-generate customer status reports. What should the PM ensure first?",o:["Full automation with no review to save time.","Data privacy compliance and human validation of outputs before distribution.","That the tool is hidden from the customer.","That AI replaces the reporting analyst."],a:1,e:"AI augments work: protect confidential data and keep human review and accountability for outputs."},
+{d:"Business Environment",q:"An AI-generated risk analysis contains plausible but incorrect items. Who is accountable for the analysis used in the project?",o:["The AI vendor.","The project manager and team who validate and use the outputs.","No one, since AI produced it.","The IT department."],a:1,e:"Humans remain accountable for AI-assisted work. Outputs must be validated before use."},
+{d:"Business Environment",q:"A governance board schedules a stage-gate review. What is the PM's main responsibility?",o:["Present only good news so the gate is passed.","Provide accurate performance, risk, and value information to support the gate decision.","Postpone the review until results improve.","Delegate the review to the team lead."],a:1,e:"Gates exist for informed governance decisions; the PM provides transparent, accurate data."},
+{d:"Business Environment",q:"Users are resisting the new system the project delivers. What is the best approach?",o:["Force adoption through management mandate only.","Apply organizational change management: communication, training, and involving user champions.","Delay go-live indefinitely.","Remove features users complain about."],a:1,e:"Adoption needs structured change management, not mandates alone — value is only realized when people use the result."},
+{d:"Business Environment",q:"During supplier selection, a vendor representative offers the PM an expensive gift. What should the PM do?",o:["Accept it to maintain the relationship.","Decline it and follow the organization's ethics and procurement policy.","Accept it but exclude that vendor.","Share the gift with the team."],a:1,e:"Gifts during selection create conflicts of interest. Decline and follow policy, disclosing as required."},
+{d:"Business Environment",q:"What is the primary purpose of a project charter?",o:["To define the detailed schedule.","To formally authorize the project and grant the PM authority to apply resources.","To document all product requirements.","To assign every team member."],a:1,e:"The charter authorizes the project's existence and the PM's authority; detailed planning follows."},
+{d:"Business Environment",q:"In PMBOK 8, the value delivery system describes:",o:["A software tool for tracking benefits.","How portfolios, programs, and projects work together under governance to create value.","The payment process for vendors.","A scheduling technique."],a:1,e:"The value delivery system is the organizational view: components working together within governance to deliver value."},
+{d:"Business Environment",q:"Which factor should most influence how heavily a project's processes are tailored?",o:["The PM's personal preference.","The project's context: size, complexity, criticality, and organizational culture.","The most recent training the team attended.","The methodology used on the previous project."],a:1,e:"Tailoring follows context, not habit or preference."},
+{d:"Business Environment",q:"Which of the following is a leading indicator of project health?",o:["Actual cost of completed work.","The number of high risks without agreed responses.","Defects reported after delivery.","Final customer satisfaction score."],a:1,e:"Leading indicators signal future problems (e.g., unaddressed risks, requirement volatility); the others are lagging results."},
+{d:"Business Environment",q:"The organization wants to confirm a proposed project supports its strategy. Which is most useful?",o:["A detailed Gantt chart.","Mapping the project's expected benefits to strategic objectives in the business case.","The team's resource calendar.","The vendor price list."],a:1,e:"Strategic alignment is shown by linking expected benefits/outcomes to strategic objectives, typically in the business case."},
+];
+
+const flashcards = [
+["Servant leadership","Mindset","Enable the team through coaching, support, empowerment, and impediment removal — not command-and-control."],
+["CPI","Formula","CPI = EV ÷ AC. Above 1 is favorable cost efficiency; below 1 signals cost overrun."],
+["SPI","Formula","SPI = EV ÷ PV. Above 1 is ahead of schedule; below 1 is behind schedule."],
+["Risk vs. issue","Process","A risk is uncertain and may happen. An issue is happening now and needs active resolution."],
+["First / Next / Best","Exam strategy","Ask: what should the PM do first to understand, collaborate, analyze, or protect people/value before acting or escalating?"],
+["Product backlog","Agile","An ordered list of work. The product owner manages ordering; the team collaborates on refinement and feasibility."],
+["WIP limit","Kanban","A cap on work in progress that exposes bottlenecks and improves flow; it is not a productivity punishment."],
+["Definition of Done","Agile","Shared, explicit quality conditions that must be met for an increment to be considered complete."],
+["Change control","Process","Make change requests visible, assess impact, decide through agreed authority, communicate, and keep traceability."],
+["Benefits realization","Business","Measure whether outputs create intended outcomes and value. A project can be on-time yet fail to deliver benefits."],
+["Psychological safety","People","The confidence to ask, challenge, report problems, and learn without fear of humiliation or punishment."],
+["Hybrid approach","Delivery","Intentionally combine predictive governance and adaptive delivery where each fits; do not mix practices randomly."],
+["Sustainable pace","People","Plan work at a pace the team can maintain while preserving quality, health, and learning."],
+["Root cause analysis","Quality","Look beyond the symptom to why a defect happened, then improve the system to prevent recurrence."],
+["Stakeholder engagement","People","Understand needs, influence, expectations, communication preferences, and desired engagement throughout the work."],
+["Value","Mindset","Value is the benefit or usefulness created for stakeholders — not simply completing tasks or spending budget."],
+["EAC","Formula","EAC = BAC ÷ CPI when current cost performance is expected to continue."],
+["TCPI","Formula","TCPI = (BAC − EV) ÷ (BAC − AC). It shows the cost efficiency needed from now to meet BAC."],
+["Retrospective","Agile","A regular team reflection that identifies improvements and creates clear action(s) for the next iteration."],
+["Experiment","Complexity","A small, safe-to-learn test used when uncertainty is high and evidence is limited."],
+["Governance","Business","Decision rights, oversight, escalation, reporting, and controls that connect delivery to organizational strategy."],
+["Responsible AI","Business","Evaluate privacy, security, bias, data quality, human oversight, transparency, and accountability before adoption."],
+["Conflict resolution","People","Address early, understand interests, facilitate collaboration, and escalate only when authority or safety requires it."],
+["Lifecycle thinking","Sustainability","Evaluate impacts and value over the product or solution lifecycle, not only the immediate project cost."],
+["EAC (typical variance)","Formula","EAC = BAC ÷ CPI — use when current cost performance is expected to continue."],
+["EAC (atypical variance)","Formula","EAC = AC + (BAC − EV) — use when the variance was a one-time event."],
+["ETC","Formula","ETC = EAC − AC. The expected cost to finish the remaining work."],
+["VAC","Formula","VAC = BAC − EAC. Negative means the project will overrun the budget."],
+["TCPI","Formula","TCPI = (BAC − EV) ÷ (BAC − AC). Above 1 means future work must be more efficient than planned to finish within budget."],
+["PERT (beta) estimate","Formula","(O + 4M + P) ÷ 6 — weighted three-point estimate."],
+["Communication channels","Formula","n(n−1) ÷ 2. Ten people = 45 channels — plan communication deliberately."],
+["Total float","Formula","Float = LS − ES (or LF − EF). Critical path activities have zero float."],
+["Crashing vs fast tracking","Schedule","Crashing adds resources (costs more). Fast tracking overlaps activities (more rework risk)."],
+["Threat responses","Risk","Avoid, Transfer, Mitigate, Accept, Escalate."],
+["Opportunity responses","Risk","Exploit, Share, Enhance, Accept, Escalate."],
+["Contingency vs management reserve","Risk","Contingency covers identified risks (PM controls). Management reserve covers unknowns (needs approval to use)."],
+["Contract types","Procurement","FFP: seller bears cost risk. Cost-reimbursable: buyer bears more risk. T&M: hybrid, good for unclear scope."],
+["Definition of Done","Agile","A shared checklist an increment must satisfy to be considered complete — quality built in."],
+["Velocity","Agile","Average story points completed per iteration. Use for the team's own planning, not cross-team comparison."],
+["Burndown vs burnup","Agile","Burndown shows remaining work; burnup shows completed work vs total scope (reveals scope change)."],
+["WIP limit","Agile","A cap on concurrent work in Kanban to improve flow and expose bottlenecks."],
+["MoSCoW","Prioritization","Must have, Should have, Could have, Won't have (this time)."],
+["RACI","Process","Responsible, Accountable (only one), Consulted, Informed — clarify roles per deliverable."],
+["Tuckman stages","People","Forming → Storming → Norming → Performing → Adjourning."],
+["Situational leadership","People","Adapt style (directing, coaching, supporting, delegating) to the person's competence and commitment."],
+["Value delivery system","PMBOK 8","Portfolios, programs, and projects working together under governance to create business value."],
+["Governance","PMBOK 8","The framework of authority and decision-making: stage gates, steering committees, tolerances, escalation paths."],
+["Triple bottom line","PMBOK 8","Sustainability lens: People, Planet, Profit — evaluate decisions on all three."],
+["AI augmentation","PMBOK 8","Use AI to assist analysis and drafting; humans validate outputs and remain accountable."],
+["Leading vs lagging indicators","Metrics","Leading predicts future performance (e.g., backlog readiness). Lagging reports past results (e.g., actual cost)."],
+];
+
+let state = loadState();
+function defaultState(){return {plan:{},planStart:todayISO(),quiz:{attempted:0,correct:0,domains:{People:[0,0],Process:[0,0],"Business Environment":[0,0]}},notes:[],reviewQueue:[],mockHistory:[],lastStudy:"",examDate:"2027-02-01",version:2};}
+function loadState(){try{return {...defaultState(),...JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}")}}catch(e){return defaultState()}}
+function saveState(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state));renderDashboard();}
+
+let quizSet=[], quizIndex=0, quizSelected=null, quizChecked=false, flashIndex=0, weekIndex=0, mock={active:false,questions:[],idx:0,selected:null,checked:false,seconds:2700,interval:null,correct:0};
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
+function showToast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove("show"),2200);}
+function go(view){$$(".tab").forEach(x=>x.classList.toggle("active",x.dataset.view===view));$$(".view").forEach(x=>x.classList.toggle("active",x.id===view));window.scrollTo({top:0,behavior:"smooth"});if(view==="lessons") renderLessons();if(view==="quiz") renderQuiz();if(view==="flashcards") renderFlash();if(view==="mock") renderMock();if(view==="notes") renderNotes();}
+$$(".tab").forEach(b=>b.addEventListener("click",()=>go(b.dataset.view)));$$("[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
+$("#dailyBtn").onclick=()=>go("study"); $("#backupBtn").onclick=exportData;
+
+function completedCount(){return Object.values(state.plan).filter(Boolean).length;}
+function percent(n,d){return d?Math.round(n/d*100):0;}
+function studyDayIndex(){let keys=Object.keys(state.plan).filter(k=>state.plan[k]); return Math.min(keys.length,195);}
+function getTodayTasks(){let i=studyDayIndex();let [topic,desc]=planTopics[i];return {i,topic,desc,tasks:[["Learn",`Read or review: ${topic}`,15],["Practise","Complete 10 scenario questions or flashcards.",25],["Reflect","Write one insight or mistake to avoid.",10],["Review","Revisit yesterday’s weak point.",10]]};}
+function calcStreak(){let n=0, d=new Date();while(true){let iso=d.toISOString().slice(0,10);if(state.plan[iso]){n++;d.setDate(d.getDate()-1)}else break;}return n;}
+function renderDashboard(){
+ const c=completedCount(),t=getTodayTasks(),tod=Object.values(state.plan).filter(v=>v).length?Math.min(60,Object.values(state.plan).filter(v=>v).length?0:0):0;
+ $("#todayMins").innerHTML=`0<span style="font-size:16px">/60</span>`;
+ $("#streakVal").textContent=calcStreak();$("#planProgress").textContent=percent(c,196)+"%";$("#completedDays").textContent=c;
+ $("#todayTitle").textContent=`Day ${Math.min(c+1,196)} — ${t.topic}`;$("#todayProgress").style.width="0%";
+ $("#todayTasks").innerHTML=t.tasks.map((x,i)=>`<label class="task"><input class="check today-check" data-min="${x[2]}" type="checkbox"><div><b>${x[0]} · ${x[2]} min</b><span>${escapeHtml(x[1])}</span></div></label>`).join("");
+ $$(".today-check").forEach(x=>x.addEventListener("change",()=>{let mins=[...$$(".today-check")].filter(a=>a.checked).reduce((s,a)=>s+Number(a.dataset.min),0);$("#todayMins").innerHTML=`${mins}<span style="font-size:16px">/60</span>`;$("#todayProgress").style.width=(mins/60*100)+"%"; if(mins===60)showToast("Great focus session — mark the study day complete!");}));
+ const q=state.quiz, a=percent(q.correct,q.attempted);$("#accuracyVal").textContent=q.attempted?a+"%":"—";
+ const dp=[["People",q.domains.People],["Process",q.domains.Process],["Business Environment",q.domains["Business Environment"]]];
+ $("#domainBars").innerHTML=dp.map(([d,x])=>`<div class="domainrow"><small>${d.replace("Business Environment","Business")}</small><div class="progressbar"><i style="width:${percent(x[1],x[0])}%"></i></div><b>${x[0]?percent(x[1],x[0])+"%":"—"}</b></div>`).join("");
+ let readiness=Math.round((percent(c,196)*.4)+(q.attempted?Math.min(a,85)*.45:0)+(state.mockHistory.length?Math.min((state.mockHistory[0]?.score||0),85)*.15:0));
+ $("#readinessPct").textContent=readiness+"%";$("#readinessRing").style.setProperty("--p",readiness);$("#readinessLabel").textContent=readiness>=70?"Building strong":readiness>=40?"In progress":"Starting";
+ renderWeek();renderModules();
+}
+function dateForPlanDay(day){let d=new Date((state.planStart||todayISO())+"T00:00:00");d.setDate(d.getDate()+day);return d;}
+function iso(d){return d.toISOString().slice(0,10)}
+function renderWeek(){
+ let base=weekIndex*7; if(base>189)base=189;
+ $("#weekLabel").textContent=`Week ${Math.floor(base/7)+1}`;
+ $("#weekGrid").innerHTML=[0,1,2,3,4,5,6].map(offset=>{let idx=base+offset,dt=dateForPlanDay(idx),key=iso(dt),done=!!state.plan[key],isToday=key===todayISO();let [topic]=planTopics[idx];return `<div class="day ${done?"done":""} ${isToday?"today":""}"><div class="date">${dayName[dt.getDay()]} · ${dt.getDate()} ${dt.toLocaleString("en",{month:"short"})}</div><div class="topic">Day ${idx+1}<br>${escapeHtml(topic)}</div><div class="mins">60-minute session</div><button class="tinybtn" data-complete="${key}" data-day="${idx}">${done?"✓ Complete":"Mark complete"}</button></div>`}).join("");
+ $$("[data-complete]").forEach(b=>b.onclick=()=>{let k=b.dataset.complete;state.plan[k]=!state.plan[k];saveState();showToast(state.plan[k]?"Study day completed. Nice work!":"Study day reopened.");});
+}
+function renderModules(){$("#moduleList").innerHTML=modules.map((m,i)=>`<div class="study-card"><div class="module-num">${m[0]}</div><div><b>${m[1]}</b><p>${m[2]}</p></div><span class="chip">${i<3?"Core":"Review"}</span></div>`).join("");}
+$("#prevWeek").onclick=()=>{weekIndex=Math.max(0,weekIndex-1);renderWeek()};$("#nextWeek").onclick=()=>{weekIndex=Math.min(11,weekIndex+1);renderWeek()};
+$("#challengeBtn").onclick=()=>{$("#challengeAnswer").classList.remove("hide");$("#challengeBtn").classList.add("hide");};
+
+
+const lessons = [
+  {
+    domain:"Foundation", time:"12 min", title:"1. PMP Mindset: อย่าตอบเหมือนหัวหน้าโครงการแบบสั่งการ", tags:["Value","Judgement","Exam mindset"],
+    body:`<p>สิ่งที่ PMP วัดมากที่สุดไม่ใช่การจำชื่อเอกสาร แต่คือ <b>การตัดสินใจของผู้นำโครงการในสถานการณ์จริง</b> โดยคำตอบที่ดีมักปกป้องคุณค่า (value) คนในทีม ลูกค้า และการทำงานอย่างโปร่งใสพร้อมกัน</p>
+    <h3>ลำดับความคิดเมื่อเจอโจทย์สถานการณ์</h3><ul><li><b>เข้าใจข้อเท็จจริงก่อน</b> — อย่าด่วนสั่งงาน เปลี่ยนคน หรือ escalate ถ้ายังไม่รู้สาเหตุและผลกระทบ</li><li><b>ทำงานร่วมกันก่อน</b> — คุยกับทีม เจ้าของงาน หรือ stakeholder ที่เกี่ยวข้อง เพื่อหาทางเลือกที่เหมาะสม</li><li><b>ใช้กระบวนการที่ตกลงไว้</b> — เช่น change control, backlog prioritization, risk response หรือ governance</li><li><b>ยกระดับเมื่อจำเป็น</b> — escalate เมื่อเกินอำนาจตัดสินใจ มีความเสี่ยงด้านกฎหมาย/ความปลอดภัย หรือการร่วมมือไม่สามารถแก้ปัญหาได้</li></ul>
+    <div class="lesson-rule"><b>กฎจำง่าย:</b> ในหลายโจทย์ คำตอบที่ดีคือ “analyze / understand / collaborate / facilitate” ก่อน “escalate / replace / blame / command”</div>
+    <div class="lesson-example"><b>ตัวอย่างในงานผลิต:</b> Supplier แจ้งส่งชิ้นส่วนช้า อย่ารีบบอกลูกค้าว่า line จะหยุด หรือยกเลิก supplier ทันที ให้ยืนยันสถานะจริง วิเคราะห์ inventory, impact ต่อ build, ทางเลือก recovery และคุยกับ supplier/ทีม planning ก่อน</div>`
+  },
+  {
+    domain:"Foundation", time:"14 min", title:"2. Predictive, Agile และ Hybrid: เลือกให้ตรงความไม่แน่นอน", tags:["Ways of working","Tailoring"],
+    body:`<p>PMP ไม่ได้บอกว่า Agile ดีกว่า Predictive เสมอไป แต่ให้เลือกวิธีทำงานให้เหมาะกับ <b>ระดับความชัดเจนของ requirement, ความเร็วของ feedback, ความเสี่ยง และข้อกำกับ</b></p>
+    <h3>สามแนวทางหลัก</h3><ul><li><b>Predictive</b> เหมาะเมื่อ scope และข้อกำหนดค่อนข้างชัด ต้องคุม baseline, compliance, supplier commitment หรือ tooling ที่เปลี่ยนยาก</li><li><b>Agile</b> เหมาะเมื่อความต้องการเปลี่ยนเร็ว ต้องทดลอง รับ feedback บ่อย และส่งมอบเป็น increment ได้</li><li><b>Hybrid</b> ใช้ governance แบบ predictive ในส่วนที่ต้องควบคุมสูง แต่ทำ development หรือ improvement แบบ iterative ในส่วนที่ยังต้องเรียนรู้</li></ul>
+    <h3>คำว่า Tailoring สำคัญมาก</h3><p>Tailoring คือการปรับวิธีการ เครื่องมือ เอกสาร และ cadence ให้พอดีกับบริบท ไม่ใช่ตัดขั้นตอนตามใจ หรือเอา Scrum มาติดป้ายโดยไม่มีการทำงานแบบ Agile จริง</p>
+    <div class="lesson-example"><b>ตัวอย่าง:</b> การทำ mold ใหม่และ PPAP มี milestone/approval ที่ชัด จึงคุมแบบ predictive ได้ดี แต่การปรับ HMI หรือ software อาจใช้ sprint, prototype และ user feedback สั้น ๆ ได้ จึงเป็น hybrid</div>`
+  },
+  {
+    domain:"People", time:"14 min", title:"3. Servant Leadership และการสร้างทีมที่ทำงานได้เอง", tags:["People","Leadership","Agile"],
+    body:`<p>Servant leadership ไม่ใช่ตามใจทีม แต่คือการนำโดย <b>สร้างเงื่อนไขให้ทีมตัดสินใจและส่งมอบงานได้ดี</b> เช่น เอา impediment ออก ทำเป้าหมายให้ชัด โค้ชทักษะ และปกป้องทีมจากสิ่งรบกวนที่ไม่จำเป็น</p>
+    <h3>พฤติกรรมที่มักเป็นคำตอบ PMP</h3><ul><li>ทำให้เป้าหมายและเกณฑ์ความสำเร็จชัดเจน</li><li>ถามเพื่อเข้าใจอุปสรรคก่อนเสนอคำตอบ</li><li>พัฒนาทีมให้ self-managing แทนการแจกงานทุกวัน</li><li>สร้าง psychological safety เพื่อให้คนกล้ารายงานความเสี่ยงหรือข้อผิดพลาด</li><li>ยอมรับข้อมูลและ feedback แม้ไม่ตรงกับความเห็นตนเอง</li></ul>
+    <h3>สิ่งที่ควรระวัง</h3><p>อย่าสับสนระหว่าง “empower” กับ “ปล่อยปละ” PM ยังต้องกำหนด governance, decision rights, priority และติดตามผลลัพธ์อย่างเหมาะสม</p>
+    <div class="lesson-example"><b>ตัวอย่าง:</b> เมื่อ operator ทำงานผิดซ้ำ อย่าเริ่มจากตำหนิ ให้สังเกตหน้างาน ถามว่าคำสั่งงาน/fixture/training/visual control ชัดพอหรือไม่ แล้วแก้ระบบก่อนโทษบุคคล</div>`
+  },
+  {
+    domain:"People", time:"15 min", title:"4. Stakeholder และ Conflict: จัดการความขัดแย้งก่อนกลายเป็นความเสียหาย", tags:["Stakeholder","Conflict","Communication"],
+    body:`<p>Stakeholder ไม่ได้มีแค่ sponsor และ customer แต่รวมถึงทีม production, supplier, QA, engineering, finance, regulator และผู้ใช้งานจริง ทุกฝ่ายมีอิทธิพล ความคาดหวัง และข้อมูลที่ต่างกัน</p>
+    <h3>หลักการ stakeholder engagement</h3><ul><li>ระบุว่าใครได้รับผลกระทบ ใครตัดสินใจ และใครมีข้อมูลสำคัญ</li><li>เข้าใจความต้องการและช่องทางสื่อสารที่เหมาะ ไม่ใช้รายงานแบบเดียวกับทุกคน</li><li>ทำให้ decision, assumption, risk และ change มองเห็นได้</li><li>ติดตามระดับ engagement ไม่ใช่แค่ว่าส่ง email แล้วหรือยัง</li></ul>
+    <h3>เมื่อเกิด conflict</h3><p>เริ่มจากการฟังและแยก <b>ตำแหน่งที่แต่ละฝ่ายยืนยัน (position)</b> ออกจาก <b>ความต้องการที่แท้จริง (interest)</b> จากนั้นหาทางเลือกที่รักษาเป้าหมายโครงการและความสัมพันธ์ การ escalate เป็นทางเลือกท้าย ๆ เว้นแต่มีเรื่อง ethics, safety หรือ authority ชัดเจน</p>
+    <div class="lesson-example"><b>ตัวอย่าง:</b> QA ต้องการ hold lot แต่ production กังวล shipment delay แทนที่จะให้ฝ่ายใดฝ่ายหนึ่งชนะ ให้รวบรวม defect evidence, risk ต่อ customer, containment, rework capability และตัดสินผ่านเกณฑ์คุณภาพ/authority ที่ตกลงไว้</div>`
+  },
+  {
+    domain:"Process", time:"15 min", title:"5. Scope, Requirement และ Change: ทุกคำขอไม่ใช่คำสั่งให้เริ่มทำทันที", tags:["Scope","Change","Governance"],
+    body:`<p>Change อาจมาจาก customer, defect, regulation, supplier หรือ learning ใหม่ การรับฟังคำขอเป็นเรื่องดี แต่ PM ต้องรักษาความโปร่งใสของผลกระทบก่อน commit</p>
+    <h3>ลำดับการจัดการ change</h3><ul><li>บันทึกและทำความเข้าใจ requirement ให้ชัด</li><li>วิเคราะห์ผลต่อ scope, cost, schedule, quality, risk, resources และ benefits</li><li>ปรึกษาผู้เชี่ยวชาญ/ทีมที่ได้รับผลกระทบ</li><li>ส่งให้ authority ที่ถูกต้องตัดสิน หรือให้ product owner จัด priority ใน agile backlog</li><li>สื่อสารผลการตัดสินใจและ update artifact ที่เกี่ยวข้อง</li></ul>
+    <h3>อย่าหลงคำตอบ “ปฏิเสธทันที”</h3><p>แม้ baseline สำคัญ แต่การปฏิเสธโดยไม่วิเคราะห์อาจทำลายคุณค่า ในทางกลับกัน การรับทุกคำขอทำให้เกิด scope creep จุดสำคัญคือ <b>มองเห็น change และตัดสินอย่างมีข้อมูล</b></p>
+    <div class="lesson-example"><b>ตัวอย่าง:</b> ลูกค้าขอเปลี่ยน resin specification ในระหว่าง MP: ต้องดู qualification, DVP/UL, inventory, BOM/SAP, supplier readiness, cost และ impact ต่อ delivery ก่อนตกลง ไม่ใช่แค่เช็คว่าทำได้ในทางเทคนิคหรือไม่</div>`
+  },
+  {
+    domain:"Process", time:"15 min", title:"6. Schedule, Cost และ EVM: ใช้ตัวเลขเพื่อช่วยตัดสินใจ", tags:["Schedule","Cost","EVM"],
+    body:`<p>ตัวเลข EVM ใช้เปรียบเทียบ <b>งานที่ควรได้ตามแผน (PV)</b> <b>งานที่ทำได้จริงในมูลค่า (EV)</b> และ <b>เงินที่จ่ายจริง (AC)</b> ไม่ใช่เพื่อรายงานอย่างเดียว แต่เพื่อเลือก action ที่ถูกต้อง</p>
+    <h3>ตัวหลักที่ควรจำ</h3><ul><li><b>CPI = EV ÷ AC</b> มากกว่า 1 = คุ้มค่าเงินกว่าที่ใช้; น้อยกว่า 1 = ใช้เงินเกินแนวโน้ม</li><li><b>SPI = EV ÷ PV</b> มากกว่า 1 = เร็วกว่าแผน; น้อยกว่า 1 = ช้ากว่าแผน</li><li><b>CV = EV − AC</b> ค่าบวกเป็น favorable cost variance</li><li><b>SV = EV − PV</b> ค่าบวกเป็น favorable schedule variance</li></ul>
+    <h3>คำถาม PMP ที่พบบ่อย</h3><p>ถ้า CPI &lt; 1 และ SPI &gt; 1 โครงการ <b>over budget แต่ ahead of schedule</b> อย่ามองเพียงสีแดง/เขียว ต้องถามว่าความเร็วแลกมาด้วย overtime, expedite cost หรือ quality risk หรือไม่</p>
+    <div class="lesson-example"><b>ตัวอย่าง:</b> Build ทำได้เกิน plan (SPI ดี) แต่ค่า premium freight และ overtime เพิ่มสูง (CPI แย่) PM ต้องวิเคราะห์ root cause และ forecast ไม่ใช่เฉลิมฉลองว่า schedule ยังดีอยู่</div>`
+  },
+  {
+    domain:"Process", time:"15 min", title:"7. Quality, Risk และ Issue: ป้องกันก่อนตรวจจับ", tags:["Quality","Risk","Issue"],
+    body:`<p>Quality ในแนวคิด PMP คือการออกแบบกระบวนการให้ป้องกันข้อผิดพลาดตั้งแต่ต้น ไม่ใช่เพิ่มการตรวจปลายทางอย่างเดียว ส่วน Risk คือเหตุการณ์ไม่แน่นอนในอนาคต แต่ Issue คือปัญหาที่กำลังเกิดขึ้นแล้ว</p>
+    <h3>เมื่อเจอ defect หรือ issue</h3><ul><li>Contain ปัญหาเพื่อปกป้อง customer และการส่งมอบ</li><li>ยืนยันข้อเท็จจริงและผลกระทบ</li><li>ทำ root-cause analysis กับคนที่เข้าใจกระบวนการ</li><li>แก้ corrective action และปรับระบบเพื่อป้องกันการเกิดซ้ำ</li><li>ตรวจ effectiveness ไม่ใช่แค่ปิด action ใน tracker</li></ul>
+    <h3>เมื่อเจอ risk</h3><p>ประเมิน probability, impact, trigger และ owner จากนั้นเลือก response ที่เหมาะ เช่น avoid, mitigate, transfer, accept สำหรับ threat หรือ exploit, enhance, share, accept สำหรับ opportunity</p>
+    <div class="lesson-example"><b>ตัวอย่าง:</b> Supplier มี lead time ยาวและมีโอกาส delay = risk ต้องมี trigger และ mitigation ล่วงหน้า; แต่ supplier แจ้ง delay แล้ว = issue ต้องเปิด recovery plan ทันที</div>`
+  },
+  {
+    domain:"Process", time:"15 min", title:"8. Agile: Backlog, Sprint, Kanban และการส่งมอบทีละส่วน", tags:["Agile","Scrum","Kanban"],
+    body:`<p>Agile คือการทำงานแบบเรียนรู้และส่งมอบเป็นช่วงสั้น เพื่อรับ feedback แล้วปรับ ไม่ใช่เพียงจัด daily meeting</p>
+    <h3>แนวคิดสำคัญ</h3><ul><li><b>Product backlog</b> คือรายการงานที่เรียงตามคุณค่า ความเสี่ยง และความจำเป็น โดย product owner เป็นเจ้าของลำดับความสำคัญ</li><li><b>Sprint</b> คือช่วงเวลาที่ทีม commit งานระดับหนึ่งและส่งมอบ increment ที่ใช้งาน/ตรวจสอบได้</li><li><b>Definition of Done</b> คือเงื่อนไขคุณภาพที่ทุกฝ่ายเข้าใจตรงกันว่างาน “เสร็จ” จริง</li><li><b>Kanban</b> ใช้ visual board และ WIP limit เพื่อเห็น bottleneck และทำให้ flow ดีขึ้น</li></ul>
+    <h3>บทบาท PM ใน Agile/Hybrid</h3><p>PM ไม่ควรสั่งแจกงานรายวันแทนทีม แต่ช่วยทำให้เป้าหมาย ข้อมูล dependency และ stakeholder expectation ชัด รวมทั้ง remove impediment และช่วย governance ที่เหมาะสม</p>
+    <div class="lesson-example"><b>ตัวอย่าง:</b> ทีม software มี urgent request เข้ามาระหว่าง sprint ทางที่ดีคือให้ product owner ประเมินและจัดเข้าคิวใน backlog ไม่ใช่แทรกงานทุกครั้งจน commitment ไม่มีความหมาย</div>`
+  },
+  {
+    domain:"Business Environment", time:"14 min", title:"9. Benefits, Value และ Organizational Change: ส่งมอบเสร็จไม่เท่ากับสำเร็จ", tags:["Benefits","Strategy","Adoption"],
+    body:`<p>โครงการอาจส่งมอบ output ตรงเวลาและงบ แต่ยังล้มเหลวได้ถ้าไม่เกิด outcome หรือ benefit ที่องค์กรต้องการ เช่น user ไม่ใช้ระบบ, cost saving ไม่เกิด, quality ไม่ดีขึ้น หรือ market opportunity หายไป</p>
+    <h3>สิ่งที่ PM ต้องถามเป็นระยะ</h3><ul><li>Business case และ benefit ยัง valid หรือไม่?</li><li>ใครเป็นเจ้าของ benefit หลัง project close?</li><li>ผู้ใช้พร้อม adopt หรือยัง: training, communication, support, champion และ feedback มีหรือไม่?</li><li>กลยุทธ์หรือ environment เปลี่ยนจนต้องปรับ scope/priority หรือไม่?</li></ul>
+    <h3>Change management ของคน</h3><p>คนต่อต้านการเปลี่ยนแปลงไม่ใช่ปัญหาที่ต้องกำจัดเสมอไป บางครั้งคือข้อมูลว่า impact, incentive, skills หรือ communication ยังไม่พอ PM ควรฟังและวางแผนการเปลี่ยนแปลงอย่างเป็นระบบ</p>
+    <div class="lesson-example"><b>ตัวอย่าง:</b> เปิดใช้ new SAP workflow สำเร็จ technically แต่ทีมหน้างานยังใช้ Excel เดิม จึงยังไม่ได้ benefit ต้องมี training, help desk, feedback loop และ owner ที่รับผิดชอบ adoption</div>`
+  },
+  {
+    domain:"Business Environment", time:"13 min", title:"10. AI, Sustainability และ Ethics: ตัดสินใจอย่างรับผิดชอบ", tags:["AI","Sustainability","Ethics"],
+    body:`<p>แนวสอบ PMP 2026 เพิ่มน้ำหนักเรื่อง AI, sustainability และ stakeholder engagement เพราะโครงการสมัยใหม่ต้องสร้างคุณค่าโดยไม่ละเลย data, people และผลกระทบระยะยาว</p>
+    <h3>ก่อนใช้ AI ในงานโครงการ</h3><ul><li>ข้อมูลที่ป้อนมีความลับของลูกค้า/บริษัทหรือไม่?</li><li>เครื่องมือผ่าน security, legal และ governance ที่องค์กรกำหนดหรือยัง?</li><li>ผลลัพธ์อาจมี bias, hallucination หรือ error แบบใด?</li><li>ใครเป็นผู้ตรวจทานและรับผิดชอบต่อการตัดสินใจสุดท้าย?</li></ul>
+    <h3>Sustainability ในมุม PM</h3><p>ไม่จำเป็นต้องเป็นโครงการสิ่งแวดล้อมโดยตรง แต่ควรพิจารณา lifecycle cost, waste, energy, supplier ethics, social impact และ compliance ที่เกี่ยวข้อง โดยชั่งน้ำหนักกับ value และ stakeholder priorities</p>
+    <div class="lesson-rule"><b>Ethics:</b> เมื่อถูกขอให้ซ่อน risk, ปรับรายงานให้ดูดี หรือข้าม compliance ให้ตอบด้วยข้อมูลจริง ใช้ governance ที่ถูกต้อง และเสนอทางเลือกแก้ไข ไม่ทำตามเพียงเพราะมีคนตำแหน่งสูงขอ</div>`
+  },
+  {
+    domain:"Exam Strategy", time:"12 min", title:"11. เทคนิคอ่านโจทย์ PMP: หา “สถานการณ์” ก่อนหา “คำตอบ”", tags:["Exam strategy","Situational"],
+    body:`<p>โจทย์ PMP มักให้ข้อมูลมากและตัวเลือกดูดีหลายข้อ ให้หาคำสำคัญ 4 อย่างก่อน: <b>สภาพแวดล้อม</b> (predictive/agile/hybrid), <b>ปัญหาหลัก</b>, <b>เวลา</b> (first/next/should have done), และ <b>อำนาจตัดสินใจ</b></p>
+    <h3>แนวทางตัดตัวเลือก</h3><ul><li>ตัดคำตอบที่ blame, replace, punish หรือ escalate เร็วเกินไป ถ้ายังไม่มีความเสี่ยงด้าน ethics/safety/compliance</li><li>ตัดคำตอบที่เริ่มทำ change ทันทีโดยไม่ประเมิน impact</li><li>ตัดคำตอบที่ส่งรายงานแทนการแก้ปัญหา</li><li>เลือกคำตอบที่ทำให้เกิดความเข้าใจ การร่วมมือ ความโปร่งใส และการตัดสินใจบนข้อมูล</li></ul>
+    <h3>คำว่า “first” กับ “next”</h3><p><b>First</b> มักเป็นการเข้าใจ/วิเคราะห์/ระบุผู้เกี่ยวข้อง ส่วน <b>next</b> คือ action หลังจากรู้ข้อเท็จจริงแล้ว อย่าเลือก action แรงเกินจังหวะของโจทย์</p>
+    <div class="lesson-example"><b>ตัวอย่าง:</b> ทีมขัดแย้งกันรุนแรง: First = เข้าใจสาเหตุและอำนวยการคุย; Next = ตกลงวิธีทำงานหรือแก้ root cause; Escalate = เมื่อจำเป็นจริง ๆ</div>`
+  },
+  {
+    domain:"Exam Strategy", time:"15 min", title:"12. แผนทบทวน 1 ชั่วโมงต่อวัน: เปลี่ยนความรู้เป็นคะแนน", tags:["Revision","Practice","Error log"],
+    body:`<p>การอ่านอย่างเดียวทำให้รู้สึกคุ้น แต่การสอบต้องเลือกคำตอบภายใต้เวลา จึงควรสลับ <b>เรียน → ทำโจทย์ → วิเคราะห์ผิด → ทบทวน</b> ทุกวัน</p>
+    <h3>สูตร 60 นาที</h3><ul><li><b>15 นาที:</b> อ่าน 1 บทหรือทบทวน flashcards</li><li><b>25 นาที:</b> ทำโจทย์สถานการณ์ 10–15 ข้อ</li><li><b>10 นาที:</b> อ่านเฉลยเฉพาะข้อผิด แล้วเขียนว่า “ตัดสินใจพลาดเพราะอะไร”</li><li><b>10 นาที:</b> ทำ error log / formula / note สั้น ๆ</li></ul>
+    <h3>Error log ที่มีประโยชน์</h3><p>อย่าจดแค่ว่าผิดข้อไหน ให้จด “rule” ที่พลาด เช่น “เมื่อเกิด issue ให้ analyze impact ก่อน report,” “agile change เข้าสู่ backlog เพื่อ prioritize,” หรือ “CPI ต่ำกว่า 1 = cost efficiency ไม่ดี”</p>
+    <div class="lesson-rule"><b>เป้าหมาย:</b> อย่าพยายามจำทุกอย่างในครั้งเดียว ให้ทำให้ pattern การตัดสินใจถูกต้องซ้ำ ๆ แล้วความมั่นใจจะเพิ่มขึ้นเอง</div>`
+  },
+
+  {
+    domain:"PMBOK 8", time:"14 min", title:"13. PMBOK 8 เปลี่ยนอะไรบ้าง: ภาพรวมก่อนลุยสอบ", tags:["PMBOK 8","Exam update"],
+    body:`<p>ข้อสอบตั้งแต่ <b>9 ก.ค. 2026</b> อิง PMBOK Guide ฉบับที่ 8 ซึ่งรวมจุดแข็งของฉบับ 6 (กระบวนการ) และฉบับ 7 (หลักการ) เข้าด้วยกัน</p>
+    <h3>จุดเปลี่ยนสำคัญ</h3><ul><li><b>Process Groups กลับมา</b> — Initiating, Planning, Executing, Monitoring & Controlling, Closing ถูกจัดโครงสร้างใหม่ให้เชื่อมกับหลักการ (principles)</li><li><b>Value Delivery ชัดขึ้น</b> — โครงการต้องส่งมอบ "ผลลัพธ์และคุณค่า (outcomes/value)" ไม่ใช่แค่ส่งของ (outputs)</li><li><b>Sustainability</b> — การตัดสินใจต้องคำนึงถึงผลกระทบต่อสังคมและสิ่งแวดล้อม ไม่ใช่แค่ต้นทุน</li><li><b>AI ในการบริหารโครงการ</b> — PM ต้องรู้จักใช้ AI ช่วยงานอย่างมีความรับผิดชอบ</li><li><b>รูปแบบคำถามหลากหลายขึ้น</b> — multiple response, matching, hotspot, fill-in นอกเหนือจาก 4 ตัวเลือก</li></ul>
+    <div class="lesson-rule"><b>กฎจำง่าย:</b> โครงสร้างข้อสอบยังเป็น People 33% / Process 41% / Business Environment 26% — สิ่งที่เพิ่มคือ "มุมมองคุณค่า ความยั่งยืน และ AI" แทรกอยู่ในทุกโดเมน</div>
+    <div class="lesson-example"><b>ตัวอย่าง:</b> โจทย์เดิมถามว่า "ทำอย่างไรให้ส่งงานทันกำหนด" โจทย์ยุค PMBOK 8 มักถามว่า "ทางเลือกใดรักษาคุณค่าต่อธุรกิจและผู้มีส่วนได้เสียมากที่สุด" — อ่านตัวเลือกโดยมองหา value ก่อน</div>`
+  },
+  {
+    domain:"PMBOK 8", time:"13 min", title:"14. Value Delivery: ส่งมอบคุณค่า ไม่ใช่แค่ส่งของ", tags:["Value","Benefits","Outcomes"],
+    body:`<p>PMBOK 8 มองว่าองค์กรคือ <b>ระบบส่งมอบคุณค่า (Value Delivery System)</b> — portfolio, program และ project ทำงานร่วมกันภายใต้ governance เพื่อสร้างคุณค่าให้ธุรกิจ</p>
+    <h3>ลำดับชั้นของผลงาน</h3><ul><li><b>Output</b> — สิ่งที่โครงการผลิต เช่น เครื่องชงกาแฟรุ่นใหม่ผ่าน PP Build</li><li><b>Outcome</b> — การเปลี่ยนแปลงที่เกิดขึ้น เช่น ลูกค้าใช้งานจริง yield ดีขึ้น คืนสินค้าลดลง</li><li><b>Benefit / Value</b> — ผลประโยชน์ต่อธุรกิจ เช่น รายได้เพิ่ม ต้นทุนต่อหน่วยลด แบรนด์แข็งแรงขึ้น</li></ul>
+    <h3>Benefits Realization</h3><p>ผลประโยชน์จำนวนมากเกิด <b>หลังปิดโครงการ</b> — PM ต้องมี benefits realization plan และส่งมอบให้ business owner ติดตามต่อ ไม่ใช่จบที่ handover</p>
+    <div class="lesson-rule"><b>กฎจำง่าย:</b> เมื่อโจทย์ให้เลือกระหว่าง "ทำตามแผนเป๊ะ" กับ "ปรับเพื่อรักษาคุณค่าต่อธุรกิจ" — คำตอบที่ดีมักปกป้อง value โดยผ่านกระบวนการที่ถูกต้อง (เช่น change control) เสมอ</div>
+    <div class="lesson-example"><b>ตัวอย่างในงานผลิต:</b> โปรแกรม NPI จะจบตรงเวลา แต่พบว่าฟีเจอร์ที่ลูกค้าต้องการจริงเปลี่ยนไป — อย่ายึด output เดิม ให้ประเมิน impact ร่วมกับ stakeholder แล้วเข้ากระบวนการ change เพื่อรักษา value</div>`
+  },
+  {
+    domain:"PMBOK 8", time:"12 min", title:"15. Governance และการ Escalate อย่างมืออาชีพ", tags:["Governance","Escalation","Stage gate"],
+    body:`<p><b>Governance</b> คือโครงสร้างการกำกับดูแลและอำนาจตัดสินใจ เช่น steering committee, stage-gate review, project board — เป็นกรอบที่บอกว่าใครตัดสินใจเรื่องอะไรได้</p>
+    <h3>เมื่อไหร่ควร escalate</h3><ul><li>ปัญหา<b>เกินอำนาจตัดสินใจ</b>ของ PM เช่น เพิ่มงบเกิน tolerance ที่ได้รับมอบ</li><li>มีความเสี่ยงด้าน<b>กฎหมาย ความปลอดภัย จริยธรรม</b></li><li>business case <b>ไม่สมเหตุสมผลอีกต่อไป</b> — governance ต้องตัดสินใจ continue / change / terminate</li><li>ความขัดแย้งระหว่างหน่วยงานที่<b>เจรจาระดับทีมแล้วไม่สำเร็จ</b></li></ul>
+    <h3>Stage gate</h3><p>จุดตรวจที่ governance ทบทวนผลงาน คุณค่า และความเสี่ยง เพื่อ<b>อนุมัติให้ไปเฟสถัดไป</b> — หน้าที่ PM คือเตรียมข้อมูล performance และ value ให้ตัดสินใจได้ ไม่ใช่ปกปิดปัญหาให้ผ่าน gate</p>
+    <div class="lesson-rule"><b>กฎจำง่าย:</b> escalate ไม่ใช่ความล้มเหลว — แต่ escalate ก่อนวิเคราะห์และก่อนพยายามแก้ในระดับตัวเองคือคำตอบที่ผิดเกือบทุกครั้งในข้อสอบ</div>
+    <div class="lesson-example"><b>ตัวอย่างในงานผลิต:</b> เหมือน MP Readiness review — PM เตรียมข้อมูล RTY, open issues, risk ให้ครบเพื่อให้ management ตัดสิน block change ไม่ใช่กดปัญหาไว้เพื่อให้ผ่าน</div>`
+  },
+  {
+    domain:"PMBOK 8", time:"12 min", title:"16. Sustainability: ตัดสินใจแบบ Triple Bottom Line", tags:["Sustainability","ESG","PMBOK 8"],
+    body:`<p>PMBOK 8 ยกระดับ <b>ความยั่งยืน</b> เป็นหัวข้อหลัก — PM ต้องพิจารณาผลกระทบ 3 ด้าน (<b>Triple Bottom Line</b>): <b>People</b> (สังคม/พนักงาน/ชุมชน), <b>Planet</b> (สิ่งแวดล้อม), <b>Profit</b> (เศรษฐกิจ)</p>
+    <h3>มุมที่ข้อสอบชอบถาม</h3><ul><li>เลือกวัสดุ/ซัพพลายเออร์: ราคาถูกสุดแต่กระทบสิ่งแวดล้อมหรือแรงงาน → ประเมินรอบด้านและสอดคล้องนโยบายองค์กร ไม่ใช่เลือกจากราคาอย่างเดียว</li><li>ของเสียและพลังงานในกระบวนการ → มองเป็นทั้งต้นทุนและความรับผิดชอบ</li><li>ผลกระทบระยะยาวหลังส่งมอบ เช่น การรีไซเคิล การซ่อมได้ อายุการใช้งาน</li><li>ข้อกำหนด ESG / compliance ของลูกค้า ถือเป็น requirement ไม่ใช่ option</li></ul>
+    <div class="lesson-rule"><b>กฎจำง่าย:</b> ถ้าตัวเลือกหนึ่ง "ถูกและเร็ว แต่ทิ้งภาระให้สังคม/สิ่งแวดล้อม" และอีกตัวเลือก "สมดุลกว่าและสอดคล้องนโยบาย" — PMBOK 8 เอียงไปทางสมดุลเสมอ</div>
+    <div class="lesson-example"><b>ตัวอย่างในงานผลิต:</b> การเลือก resin หรือ masterbatch — ถ้าเกรดถูกกว่าแต่ไม่ผ่านข้อกำหนดด้านสิ่งแวดล้อม/ความปลอดภัยของลูกค้า (เช่น UL, RoHS) นั่นไม่ใช่ทางเลือกที่ยั่งยืนและจะกลายเป็นต้นทุนคุณภาพย้อนหลัง</div>`
+  },
+  {
+    domain:"PMBOK 8", time:"13 min", title:"17. AI กับการบริหารโครงการ: ผู้ช่วย ไม่ใช่ผู้ตัดสิน", tags:["AI","PMBOK 8","Ethics"],
+    body:`<p>PMBOK 8 คาดหวังให้ PM <b>ใช้ AI เป็นตัวช่วยเพิ่มประสิทธิภาพ (augmentation)</b> โดยที่<b>ความรับผิดชอบต่อการตัดสินใจยังอยู่ที่มนุษย์</b>เสมอ</p>
+    <h3>AI ช่วยอะไรได้</h3><ul><li>สรุปรายงานสถานะ ร่างเอกสาร วิเคราะห์ข้อมูลย้อนหลัง</li><li>ช่วยระบุความเสี่ยง คาดการณ์ schedule/cost จากข้อมูลเดิม</li><li>ตอบคำถามซ้ำ ๆ และจัดการงานธุรการของโครงการ</li></ul>
+    <h3>ข้อควรระวังที่ข้อสอบชอบออก</h3><ul><li><b>ตรวจสอบก่อนใช้</b> — ผลลัพธ์ AI อาจผิด PM ต้อง validate ก่อนนำไปตัดสินใจหรือส่งลูกค้า</li><li><b>ความเป็นส่วนตัวและความลับ</b> — ห้ามป้อนข้อมูล confidential เข้าเครื่องมือที่ไม่ได้รับอนุมัติ</li><li><b>คุณภาพข้อมูล</b> — ข้อมูลขยะเข้า ผลขยะออก (garbage in, garbage out)</li><li><b>ความโปร่งใส</b> — แจ้งผู้เกี่ยวข้องเมื่อใช้ AI ในงานที่มีผลต่อการตัดสินใจสำคัญ</li></ul>
+    <div class="lesson-rule"><b>กฎจำง่าย:</b> คำตอบที่ให้ AI "ตัดสินใจแทน" หรือ "ใช้ผลลัพธ์ทันทีโดยไม่ตรวจ" ผิดเสมอ — คำตอบที่ดีคือ ใช้ AI ช่วย + มนุษย์ตรวจสอบและรับผิดชอบ</div>
+    <div class="lesson-example"><b>ตัวอย่างในงานผลิต:</b> ใช้ AI ช่วยร่าง MOM หรือวิเคราะห์แนวโน้ม defect ได้ แต่ก่อนส่งรายงาน RTY ให้ลูกค้า PM ต้องตรวจตัวเลขกับข้อมูลจริงก่อนทุกครั้ง</div>`
+  },
+  {
+    domain:"Process", time:"14 min", title:"18. Measurement: EVM ต่อยอด (EAC, ETC, TCPI) และตัวชี้วัดที่ดี", tags:["EVM","Metrics","Formula"],
+    body:`<p>ต่อยอดจาก CPI/SPI — ข้อสอบชอบถาม<b>การพยากรณ์</b>และ<b>การเลือกตัวชี้วัด</b></p>
+    <h3>สูตรพยากรณ์</h3><ul><li><b>EAC = BAC ÷ CPI</b> — เมื่อความแปรปรวนปัจจุบันจะดำเนินต่อไป (typical)</li><li><b>EAC = AC + (BAC − EV)</b> — เมื่อความแปรปรวนเป็นเหตุการณ์ครั้งเดียว (atypical)</li><li><b>ETC = EAC − AC</b> — เงินที่ต้องใช้อีกจนจบ</li><li><b>VAC = BAC − EAC</b> — จะเกิน/ประหยัดงบเท่าไร</li><li><b>TCPI = (BAC − EV) ÷ (BAC − AC)</b> — ต้องทำงานคุ้มค่าแค่ไหนถึงจบในงบ ถ้า > 1 แปลว่าต้อง "เก่งขึ้นกว่าเดิม"</li></ul>
+    <h3>Leading vs Lagging indicators</h3><ul><li><b>Leading</b> — สัญญาณล่วงหน้า เช่น backlog พร้อมแค่ไหน, requirement เปลี่ยนบ่อยแค่ไหน, จำนวน risk ที่ยังไม่มี response</li><li><b>Lagging</b> — ผลที่เกิดแล้ว เช่น actual cost, defect หลังส่งมอบ, RTY ของ build ที่ผ่านมา</li><li>ระวัง <b>vanity metrics</b> — ตัวเลขที่ดูดีแต่ไม่ช่วยตัดสินใจ</li></ul>
+    <div class="lesson-rule"><b>กฎจำง่าย:</b> CPI 0.8 = จ่าย 1 บาทได้งาน 0.80 บาท | TCPI 1.25 = จากนี้ต้องได้งาน 1.25 บาทต่อทุก 1 บาทที่จ่าย ถึงจะจบในงบ</div>
+    <div class="lesson-example"><b>ตัวอย่าง:</b> BAC 200k, EV 80k, AC 100k → CPI 0.8, EAC = 200k/0.8 = <b>250k</b>, VAC = −50k → ต้องรายงาน governance พร้อมทางเลือก recovery</div>`
+  },
+  {
+    domain:"Process", time:"11 min", title:"19. Tailoring: เลือกวิธีทำงานจากบริบท ไม่ใช่ความเคยชิน", tags:["Tailoring","Hybrid","PMBOK 8"],
+    body:`<p><b>Tailoring</b> คือการปรับกระบวนการ เอกสาร และวิธีทำงานให้เหมาะกับโครงการนั้น ๆ — PMBOK 8 ย้ำว่าไม่มีสูตรเดียวที่ใช้ได้ทุกงาน</p>
+    <h3>ปัจจัยที่ใช้ตัดสินใจ</h3><ul><li><b>ความไม่แน่นอนของ requirement</b> — นิ่งมาก → predictive, เปลี่ยนบ่อย → adaptive</li><li><b>ขนาดและความซับซ้อน</b> — โครงการใหญ่/หลายทีม ต้องการ governance และเอกสารมากขึ้น</li><li><b>ความเสี่ยงและ criticality</b> — งานเกี่ยวกับความปลอดภัย/กฎหมาย ต้องเข้มงวดกว่า</li><li><b>วัฒนธรรมองค์กรและความพร้อมของทีม</b> — อย่ายัด framework ที่ทีมไม่พร้อม</li></ul>
+    <h3>Hybrid ที่พบบ่อย</h3><p>โครงสร้างหลักเป็น predictive (milestone, stage gate, บัดเจ็ตประจำปี) แต่การพัฒนาบางส่วนทำแบบ iterative — เช่นฮาร์ดแวร์เดินตาม NPI phase ส่วน firmware/software ทำเป็น sprint</p>
+    <div class="lesson-rule"><b>กฎจำง่าย:</b> เมื่อโจทย์ถาม "ควรใช้แนวทางไหน" — หาคำตอบที่อิง<b>บริบทของงาน</b> ไม่ใช่ตัวเลือกที่บอกว่า agile ดีที่สุดเสมอ หรือ waterfall ดีที่สุดเสมอ</div>
+    <div class="lesson-example"><b>ตัวอย่างในงานผลิต:</b> โปรแกรมเครื่องชงกาแฟ — mold/tooling เป็น predictive เต็มรูปแบบ (แก้ทีหลังแพงมาก) แต่ UI firmware ปรับแบบ iterative ตาม feedback ได้ นี่คือ hybrid โดยธรรมชาติ</div>`
+  },
+  {
+    domain:"Foundation", time:"13 min", title:"20. กลยุทธ์ทำข้อสอบ 180 ข้อ และรูปแบบคำถามใหม่", tags:["Exam strategy","Time management"],
+    body:`<p>ข้อสอบ 180 ข้อ / 240 นาที (เฉลี่ย ~75 วินาที/ข้อ) มีพัก 2 ครั้ง ครั้งละ 10 นาที (หลังข้อ 60 และ 120) — <b>ข้อที่ submit แล้วก่อนพักจะกลับมาแก้ไม่ได้</b></p>
+    <h3>รูปแบบคำถามที่ต้องรู้จัก</h3><ul><li><b>Multiple choice</b> — เลือก 1 จาก 4 (ส่วนใหญ่)</li><li><b>Multiple response</b> — เลือกหลายคำตอบ โจทย์จะบอกจำนวน เช่น "เลือก 2 ข้อ"</li><li><b>Matching / Drag-and-drop</b> — จับคู่คำกับนิยามหรือขั้นตอน</li><li><b>Hotspot</b> — คลิกตำแหน่งบนภาพ เช่น จุดบนกราฟ burndown</li><li><b>Fill-in-the-blank</b> — มักเป็นการคำนวณ เช่น EVM</li></ul>
+    <h3>เทคนิคจัดการเวลา</h3><ul><li>แบ่งเป็น 3 ช่วง ช่วงละ 60 ข้อ / ~80 นาที</li><li>ข้อที่ลังเลเกิน 90 วินาที → เลือกคำตอบที่ดีที่สุดตอนนั้น, flag ไว้, ไปต่อ</li><li>ตัดตัวเลือกที่ "สั่งการทันที / โทษคน / ข้ามกระบวนการ / escalate ก่อนวิเคราะห์" ออกก่อน มักเหลือ 2 ตัวเลือกให้ชั่งน้ำหนัก</li><li>คำที่ต้องอ่านช้า ๆ: <b>FIRST, NEXT, BEST, MOST, EXCEPT</b></li></ul>
+    <div class="lesson-rule"><b>กฎจำง่าย:</b> ทุกข้อถามสิ่งเดียวกันโดยอ้อม: "ผู้นำโครงการที่ดี เข้าใจสถานการณ์ → ร่วมมือ → ใช้กระบวนการ → ปกป้องคุณค่าและผู้คน" — ตอบจาก mindset นี้เมื่อไม่แน่ใจ</div>
+    <div class="lesson-example"><b>ตัวอย่าง:</b> เจอโจทย์คำนวณ EVM ตอนสมองล้า — flag ไว้ก่อนแล้วกลับมาทำหลังจบชุดคำถามสถานการณ์ อย่าเสีย 5 นาทีกับ 1 ข้อจนข้อง่ายด้านหลังไม่ได้ทำ</div>`
+  },
+];
+let currentLesson = 0;
+function renderLessons(){
+  const done = Object.keys(state.readLessons||{}).filter(k=>state.readLessons[k]).length;
+  $("#lessonReadCount").textContent=`${done} / ${lessons.length} บทอ่านแล้ว`;
+  $("#lessonProgress").style.width=`${Math.round(done/lessons.length*100)}%`;
+  $("#lessonNav").innerHTML=lessons.map((l,i)=>`<button class="lesson-link ${i===currentLesson?"active":""} ${(state.readLessons||{})[i]?"done":""}" data-lesson="${i}"><span style="font-size:10px;color:#6e87ae">${l.domain}</span><br>${escapeHtml(l.title)}</button>`).join("");
+  const l=lessons[currentLesson];
+  $("#lessonContent").innerHTML=`<div class="lesson-kicker">${escapeHtml(l.domain)} · ${l.time} อ่าน</div><h2>${escapeHtml(l.title)}</h2><div class="lesson-meta">${l.tags.map(t=>`<span class="chip">${escapeHtml(t)}</span>`).join("")}<span class="chip green">Original Thai summary</span></div><div class="lesson-body">${l.body}</div><div class="lesson-actions"><button class="primary-action" id="markLesson">${(state.readLessons||{})[currentLesson]?"✓ อ่านแล้ว":"Mark as read"}</button><button class="secondary-action" id="nextLesson">บทถัดไป →</button></div><div class="resource-grid"><div class="resource"><b>อ่านต่อ</b><p>ทำ Flashcards ที่เกี่ยวข้องเพื่อจำคำศัพท์และ concept</p></div><div class="resource"><b>ฝึกคิด</b><p>ทำ Quiz แล้วดูว่าคุณเลือก action เร็วเกินจังหวะหรือไม่</p></div><div class="resource"><b>โยงกับงานจริง</b><p>บันทึกตัวอย่างจาก NPI / change / quality / supplier ใน Notes</p></div></div>`;
+  $$('[data-lesson]').forEach(b=>b.onclick=()=>{currentLesson=Number(b.dataset.lesson);renderLessons();});
+  $("#markLesson").onclick=()=>{state.readLessons=state.readLessons||{};state.readLessons[currentLesson]=!state.readLessons[currentLesson];saveState();renderLessons();showToast(state.readLessons[currentLesson]?"บันทึกว่าอ่านจบแล้ว":"นำสถานะอ่านจบออกแล้ว");};
+  $("#nextLesson").onclick=()=>{currentLesson=(currentLesson+1)%lessons.length;renderLessons();};
+}
+
+function startQuiz(){
+ let d=$("#quizDomain").value;let pool=d==="all"?questions:questions.filter(q=>q.d===d);quizSet=[...pool].sort(()=>Math.random()-.5).slice(0,Math.min(10,pool.length));quizIndex=0;quizSelected=null;quizChecked=false;renderQuiz();
+}
+function renderQuiz(){
+ if(!quizSet.length)startQuiz();
+ let q=quizSet[quizIndex];if(!q)return;
+ $("#quizCard").innerHTML=`<div class="qtop"><span class="chip">${q.d}</span><span class="qnum">Question ${quizIndex+1} of ${quizSet.length}</span></div><div class="progressbar"><i style="width:${(quizIndex/quizSet.length)*100}%"></i></div><h2 class="question">${escapeHtml(q.q)}</h2><div>${q.o.map((o,i)=>`<button class="option ${quizSelected===i?"selected":""}" data-option="${i}" ${quizChecked?"disabled":""}><span class="letter">${"ABCD"[i]}</span><span>${escapeHtml(o)}</span></button>`).join("")}</div>${quizChecked?`<div class="explanation"><b>${quizSelected===q.a?"✓ Correct":"✕ Review the principle"}</b><br>${escapeHtml(q.e)}</div>`:""}<div class="quiz-footer"><button class="secondary-action" id="quizSkip">Skip</button><button class="primary-action" id="quizAction">${quizChecked?(quizIndex===quizSet.length-1?"Finish quiz":"Next question"):"Check answer"}</button></div>`;
+ $$("[data-option]").forEach(b=>b.onclick=()=>{quizSelected=Number(b.dataset.option);renderQuiz();});
+ $("#quizSkip").onclick=()=>{if(quizIndex<quizSet.length-1){quizIndex++;quizSelected=null;quizChecked=false;renderQuiz()}else finishQuiz();};
+ $("#quizAction").onclick=()=>{if(!quizChecked){if(quizSelected===null){showToast("Choose an answer first.");return;}quizChecked=true;let q=quizSet[quizIndex];state.quiz.attempted++;state.quiz.domains[q.d][0]++;if(quizSelected===q.a){state.quiz.correct++;state.quiz.domains[q.d][1]++;}saveState();renderQuiz();}else{if(quizIndex<quizSet.length-1){quizIndex++;quizSelected=null;quizChecked=false;renderQuiz()}else finishQuiz();}};
+}
+function finishQuiz(){let recent=quizSet.filter((q,i)=>true);let score=quizSet.length?Math.round(recent.reduce((n,q,i)=>n+(0),0)):0;$("#quizCard").innerHTML=`<div class="qtop"><span class="chip green">Complete</span></div><h2>Quiz complete</h2><p class="sub">Your answers were added to the dashboard. Review explanations, then choose another domain or return to your study plan.</p><div class="btnrow"><button class="primary-action" id="againQuiz">New quiz</button><button class="secondary-action" data-go="dashboard">View dashboard</button></div>`;$("#againQuiz").onclick=startQuiz;$("#quizCard [data-go]").onclick=()=>go("dashboard");showToast("Quiz recorded.");}
+$("#restartQuiz").onclick=startQuiz;$("#quizDomain").onchange=startQuiz;
+
+function renderFlash(){
+ if(flashIndex>=flashcards.length)flashIndex=0;let f=flashcards[flashIndex];$("#flashFront").textContent=f[0];$("#flashTag").textContent=f[1];$("#flashBackTitle").textContent=f[1];$("#flashBack").textContent=f[2];$("#flashCount").textContent=`${flashIndex+1} of ${flashcards.length}`;$("#flashcard").classList.remove("flipped");let n=state.reviewQueue.length;$("#reviewQueueText").textContent=n?`${n} card${n>1?"s":""} queued for review: ${state.reviewQueue.map(i=>flashcards[i]?.[0]).filter(Boolean).join(", ")}.`:"No cards queued for review.";
+}
+$("#flashcard").onclick=()=>$("#flashcard").classList.toggle("flipped");$("#flashPrev").onclick=()=>{flashIndex=(flashIndex-1+flashcards.length)%flashcards.length;renderFlash()};$("#flashNext").onclick=()=>{flashIndex=(flashIndex+1)%flashcards.length;renderFlash()};$("#flashAgain").onclick=()=>{if(!state.reviewQueue.includes(flashIndex))state.reviewQueue.push(flashIndex);saveState();showToast("Added to review queue.");renderFlash();};
+
+function fmtTime(sec){let m=Math.floor(sec/60),s=sec%60;return String(m).padStart(2,"0")+":"+String(s).padStart(2,"0")}
+function renderMock(){
+ $("#mockTimer").textContent=fmtTime(mock.seconds);$("#mockProgress").style.width=(mock.active?((mock.idx/30)*100):0)+"%";
+ if(!mock.active){$("#mockQuizCard").innerHTML=`<div class="empty">Start a mock practice to begin.</div>`;renderMockHistory();return}
+ let q=mock.questions[mock.idx];$("#mockQuizCard").innerHTML=`<div class="qtop"><span class="chip" style="background:#f0edff;color:#7655e8">Mock practice</span><span class="qnum">Question ${mock.idx+1} of 30</span></div><div class="progressbar"><i style="width:${mock.idx/30*100}%"></i></div><h2 class="question">${escapeHtml(q.q)}</h2>${q.o.map((o,i)=>`<button class="option ${mock.selected===i?"selected":""} ${mock.checked&&(i===q.a?"correct":mock.selected===i?"wrong":"")}" data-moption="${i}" ${mock.checked?"disabled":""}><span class="letter">${"ABCD"[i]}</span><span>${escapeHtml(o)}</span></button>`).join("")}${mock.checked?`<div class="explanation"><b>${mock.selected===q.a?"✓ Correct":"✕ Review"}</b><br>${escapeHtml(q.e)}</div>`:""}<div class="quiz-footer"><span class="qnum">Correct: ${mock.correct}</span><button class="primary-action" id="mockAction">${mock.checked?(mock.idx===29?"Finish mock":"Next question"):"Check answer"}</button></div>`;
+ $$("[data-moption]").forEach(b=>b.onclick=()=>{mock.selected=Number(b.dataset.moption);renderMock()});
+ $("#mockAction").onclick=()=>{if(!mock.checked){if(mock.selected===null){showToast("Choose an answer first.");return;}mock.checked=true;if(mock.selected===q.a)mock.correct++;renderMock();}else{if(mock.idx<29){mock.idx++;mock.selected=null;mock.checked=false;renderMock()}else finishMock();}};
+ renderMockHistory();
+}
+function startMock(){mock={active:true,questions:Array.from({length:30},()=>questions[Math.floor(Math.random()*questions.length)]),idx:0,selected:null,checked:false,seconds:2700,interval:null,correct:0};mock.interval=setInterval(()=>{mock.seconds--;if(mock.seconds<=0){finishMock();}else {$("#mockTimer").textContent=fmtTime(mock.seconds)}},1000);renderMock();}
+function finishMock(){if(mock.interval)clearInterval(mock.interval);let score=Math.round(mock.correct/30*100);state.mockHistory.unshift({date:new Date().toLocaleDateString(),score,correct:mock.correct,time:2700-mock.seconds});state.mockHistory=state.mockHistory.slice(0,8);saveState();mock.active=false;$("#mockQuizCard").innerHTML=`<div style="max-width:680px;margin:auto;text-align:center;padding:23px"><span class="chip green">Mock complete</span><h2 style="margin-top:12px">Score: ${score}%</h2><p class="sub">You answered ${mock.correct} of 30 correctly. Capture one recurring mistake in Notes, then practise the related domain.</p><div class="btnrow" style="justify-content:center"><button class="primary-action" id="restartMock">Start again</button><button class="secondary-action" data-go="notes">Write reflection</button></div></div>`;$("#restartMock").onclick=startMock;$("#mockQuizCard [data-go]").onclick=()=>go("notes");renderMockHistory();showToast("Mock result saved.");}
+function stopMock(){if(mock.interval)clearInterval(mock.interval);mock={active:false,questions:[],idx:0,selected:null,checked:false,seconds:2700,interval:null,correct:0};renderMock();showToast("Mock reset.");}
+function renderMockHistory(){$("#mockHistory").innerHTML=state.mockHistory.length?state.mockHistory.map(h=>`<div class="noteitem"><b>${h.score}% · ${h.correct}/30</b><p>${h.date} · ${Math.floor(h.time/60)} min used</p></div>`).join(""):`<div class="empty">No mock result yet.</div>`;}
+$("#startMock").onclick=startMock;$("#stopMock").onclick=stopMock;
+
+function num(id){let v=parseFloat($(id).value);return Number.isFinite(v)?v:null}
+function result(id,txt){$(id).textContent=txt}
+function f2(n){return Number.isFinite(n)?n.toFixed(2):"—"}
+function bindCalc(){
+  function on(ids, fn){ ids.forEach(id=>$("#"+id).addEventListener("input",fn)); }
+  on(["cpiEv","cpiAc"],()=>{let a=num("#cpiEv"),b=num("#cpiAc");result("#cpiResult",a!==null&&b?`CPI = ${f2(a/b)} · ${a/b>=1?"Favorable cost efficiency":"Over budget trend"}`:"");});
+  on(["spiEv","spiPv"],()=>{let a=num("#spiEv"),b=num("#spiPv");result("#spiResult",a!==null&&b?`SPI = ${f2(a/b)} · ${a/b>=1?"Ahead of schedule":"Behind schedule"}`:"");});
+  on(["cvEv","cvAc"],()=>{let a=num("#cvEv"),b=num("#cvAc");result("#cvResult",a!==null&&b!==null?`CV = ${f2(a-b)} · ${a-b>=0?"Favorable":"Unfavorable"}`:"");});
+  on(["svEv","svPv"],()=>{let a=num("#svEv"),b=num("#svPv");result("#svResult",a!==null&&b!==null?`SV = ${f2(a-b)} · ${a-b>=0?"Ahead":"Behind"}`:"");});
+  on(["eacBac","eacCpi"],()=>{let a=num("#eacBac"),b=num("#eacCpi");result("#eacResult",a!==null&&b?`EAC = ${f2(a/b)}`:"");});
+  on(["tcpiBac","tcpiEv","tcpiAc"],()=>{let a=num("#tcpiBac"),b=num("#tcpiEv"),c=num("#tcpiAc");let v=(a!==null&&b!==null&&c!==null&&a!==c)?(a-b)/(a-c):null;result("#tcpiResult",v!==null?`TCPI = ${f2(v)} · ${v>1?"Higher future efficiency needed":"Target remains achievable at lower efficiency"}`:"");});
+}
+bindCalc();
+
+function renderNotes(){$("#noteList").innerHTML=state.notes.length?state.notes.map((n,i)=>`<div class="noteitem"><b><span class="chip">${escapeHtml(n.category)}</span> ${escapeHtml(n.title||"Untitled note")}</b><p>${escapeHtml(n.body)}</p><div class="meta"><span>${n.date}</span><button class="linkbtn" data-del-note="${i}" style="font-size:10px">Delete</button></div></div>`).join(""):`<div class="empty">No notes yet. Capture an insight from today’s study.</div>`;$$("[data-del-note]").forEach(b=>b.onclick=()=>{state.notes.splice(Number(b.dataset.delNote),1);saveState();renderNotes();});}
+$("#saveNote").onclick=()=>{let body=$("#noteBody").value.trim();if(!body){showToast("Write a note first.");return;}state.notes.unshift({category:$("#noteCategory").value,title:$("#noteTitle").value.trim(),body,date:new Date().toLocaleString()});saveState();$("#noteBody").value="";$("#noteTitle").value="";renderNotes();showToast("Note saved.");};$("#clearNote").onclick=()=>{$("#noteBody").value="";$("#noteTitle").value="";};
+function download(name,content,type="application/json"){let a=document.createElement("a");a.href=URL.createObjectURL(new Blob([content],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),200);}
+function exportData(){download(`pmp-focus-backup-${todayISO()}.json`,JSON.stringify(state,null,2));showToast("Backup exported.");}
+function exportNotes(){download(`pmp-focus-notes-${todayISO()}.txt`,state.notes.map(n=>`[${n.category}] ${n.title}\n${n.body}\n${n.date}\n`).join("\n---\n"),"text/plain");showToast("Notes exported.");}
+$("#exportData").onclick=exportData;$("#exportNotes").onclick=exportNotes;
+$("#importData").onchange=e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let v=JSON.parse(r.result);if(!confirm("Restore this PMP Focus backup? Current local data will be replaced."))return;state={...defaultState(),...v};saveState();startQuiz();renderFlash();renderNotes();renderMockHistory();showToast("Backup restored.");}catch(err){showToast("That file is not a valid PMP Focus backup.");}};r.readAsText(f);e.target.value="";};
+$("#resetData").onclick=()=>{if(confirm("Reset all PMP Focus progress, notes, and history on this device?")){state=defaultState();saveState();startQuiz();renderFlash();renderNotes();renderMockHistory();showToast("Local app data reset.");}};
+if(!state.examDate)state.examDate="2027-02-01";
+function renderExam(){
+  const d=new Date(state.examDate+"T00:00:00");
+  $("#examDateLabel").textContent=d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+  const days=Math.ceil((d-new Date(todayISO()+"T00:00:00"))/86400000);
+  $("#examCountdown").textContent=days>1?`D-${days} (เหลือ ${days} วัน)`:days===1?"พรุ่งนี้แล้ว! 💪":days===0?"วันนี้! สู้ๆ ครับ 🎯":"ผ่านไปแล้ว — อัปเดตวันสอบใหม่ได้";
+}
+$("#examDateLabel").onclick=()=>{
+  const v=prompt("ตั้งวันสอบเป้าหมาย (YYYY-MM-DD):",state.examDate);
+  if(v&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&!isNaN(new Date(v+"T00:00:00"))){state.examDate=v;saveState();renderExam();showToast("อัปเดตวันสอบเรียบร้อย");}
+  else if(v)showToast("รูปแบบวันที่ไม่ถูกต้อง ใช้ YYYY-MM-DD");
+};
+renderExam();
+renderDashboard();renderLessons();startQuiz();renderFlash();renderNotes();renderMockHistory();
+</script>
+</body>
+</html>
